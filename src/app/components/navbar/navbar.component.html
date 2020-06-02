@@ -1,0 +1,90 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+            <a href="#" class="navbar-brand text-white">
+                <img src="assets/img/umss.png" alt="" width="55em" height="60em" class="d-none d-lg-inline-block">
+                <h6 class="d-inline d-lg-none">
+                    Menu
+                </h6>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav text-white">          
+                    <li class="nav-item" routerLinkActive="active">                
+                        <a class="nav-link" [routerLink]="['/inicio']">
+                            <i class="fas fa-home"></i>
+                            Inicio
+                        </a>
+                        <!--{{dataBaseService.bandera}}-->
+                    </li>
+
+                    <!--Extraer de la base de datos ***-->
+                    <li class="nav-item dropdown" routerLinkActive="active" >
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Departamento
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown"> 
+                            <a class="dropdown-item" href="#">Informatica-Sistemas</a>
+                            <a class="dropdown-item" href="#">Quimica</a>
+                            <a class="dropdown-item" href="#">Civil</a>
+                            <a class="dropdown-item" href="#">Matematicas</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-plus"></i>
+                                Nuevo Deparatmento
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item" routerLinkActive="active" >
+                        <a class="nav-link" [routerLink]="['/nosotros']" >
+                            <i class="fas fa-sitemap"></i>
+                            Nosotros
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown" routerLinkActive="active" >
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">HTML</a>
+                        <a class="dropdown-item" href="#">CSS</a>
+                        <!--<div class="dropdown-divider"></div>-->
+                        <a class="dropdown-item" href="#">JS</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item" routerLinkActive="active" > 
+                        <!--<a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">-->
+                        <a class="nav-link" data-toggle="modal" data-target="#modalLogin" [routerLink]="['/login']" > <!--data-target="#modalLogin"-->
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </a>
+                    </li>
+                </ul> 
+                <div class=" ml-auto d-flex flex-column ">
+                    <!--<form class="form-inline mt-3 mb-2"> *********************--> 
+                    <div class="form-inline mt-3 mb-2">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                    </div>
+                    <!--</form>--> 
+                    
+                    <div class="text-white  small d-flex flex-row p-0">
+                        <p class="">
+                            Dpto: Informatica Sistemas
+                        </p>
+
+                        <p class="ml-auto">
+                            <i class="fas fa-sign-out-alt"></i>
+                            salir
+                        </p>
+                    </div> 
+                </div>
+            </div>    
+    </div>
+</nav>

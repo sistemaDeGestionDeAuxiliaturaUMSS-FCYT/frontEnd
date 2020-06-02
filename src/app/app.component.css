@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    background: #f0f0f0;
+  }
+  
+  nav{
+    background: orange;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0px;
+    width: 100%;
+    }  
+
+  footer {
+    width: 100%;
+    align-self: flex-end;
+  }
