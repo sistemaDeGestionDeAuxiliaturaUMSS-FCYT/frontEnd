@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+<div class="border border-secondary  col-sm-11 col-md-8 p-5 m-5" > <!-- [formGroup]="createForm" -->
+    <div class="row justify-content-center">
+       <h3 class="font-weight-bold m-0 p-0">
+           Crear Convocatoria
+       </h3>
+    </div>
+
+    <!--AÑADIR en .html y .ts: formControlName="firstName", porcada input y sus respectivos validadores, esta tirando error por este motivo-->
+    <div>        
+        <form [formGroup]="createForm">            
+            <div class="form-group" >
+                <label for="nombreConvocatoria">Nombre de la convocatoria : </label>
+                <input type="text" class="form-control" id="nombreConvocatoria" placeholder="Nombre">                
+            </div>
+            
+            <div class="form-group">
+                <label for="tipoConvocatoria">Tipo Convocatoria</label>
+                <select class="custom-select my-1 mr-sm-2" id="tipoConvocatoria">
+                    <option selected>Choose...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="gestiontipoConvocatoria">Gestion</label>
+                <select class="custom-select my-1 mr-sm-2" id="gestionConvocatoria">
+                    <option selected>Choose...</option>
+                    <option value="1">2018</option>
+                    <option value="2">2019</option>
+                    <option value="3">2020</option>
+                  </select>
+            </div>
+            
+            <div class="row">
+                <div class="form-group col">
+                    <label for="fechaInicioConcocatoria">Fecha Inicio</label>                
+                    <input class="form-control" type="date" value="" id="fechaInicioConcocatoria">  
+                </div>
+    
+                <div class="form-group col">
+                    <label for="fechaFinConcocatoria">Fecha Fin</label>                
+                    <input class="form-control" type="date" value="" id="fechaFinConcocatoria">  
+                </div>
+            </div>
+            
+            <div class="row mr-1">
+                <button type="submit" class="btn btn-primary ml-auto">Crear</button>
+            </div>
+        </form>        
+    </div>    
+</div>
+</div>

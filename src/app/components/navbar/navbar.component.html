@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-            <a href="#" class="navbar-brand text-white">
-                <img src="assets/img/umss.png" alt="" width="55em" height="60em" class="d-none d-lg-inline-block">
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <!--<div class="container">-->
+            <a class="navbar-brand text-white">
+                <img src="assets/img/umss.png" alt="" width="55em" height="70em" class="d-none d-lg-inline-block">
                 <h6 class="d-inline d-lg-none">
                     Menu
                 </h6>
@@ -22,51 +22,55 @@
                     </li>
 
                     <!--Extraer de la base de datos ***-->
-                    <li class="nav-item dropdown" routerLinkActive="active" >
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Departamento
+                    <li class="nav-item dropdown" routerLinkActive="active"  *ngIf='!userIsLogin()'> <!--*ngIf='!estaLogueado()'-->
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                            <i class="fas fa-landmark"></i>
+                            Departamento
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown"> 
-                            <a class="dropdown-item" href="#">Informatica-Sistemas</a>
-                            <a class="dropdown-item" href="#">Quimica</a>
-                            <a class="dropdown-item" href="#">Civil</a>
-                            <a class="dropdown-item" href="#">Matematicas</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-plus"></i>
-                                Nuevo Deparatmento
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" > 
+                            <a class="dropdown-item btn" *ngFor="let dpto of getDepartamento()"  (click)="setDepartamento(dpto)">
+                                {{dpto}}    
                             </a>
                         </div>
-                    </li>
+                    </li>                
 
-                    <li class="nav-item" routerLinkActive="active" >
-                        <a class="nav-link" [routerLink]="['/nosotros']" >
-                            <i class="fas fa-sitemap"></i>
-                            Nosotros
-                        </a>
-                    </li>
-
-                    <li class="nav-item dropdown" routerLinkActive="active" >
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">HTML</a>
-                        <a class="dropdown-item" href="#">CSS</a>
-                        <!--<div class="dropdown-divider"></div>-->
-                        <a class="dropdown-item" href="#">JS</a>
-                        </div>
-                    </li>
-
-                    <li class="nav-item" routerLinkActive="active" > 
+                    <li class="nav-item" routerLinkActive="active" *ngIf='!userIsLogin()' > 
                         <!--<a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">-->
                         <a class="nav-link" data-toggle="modal" data-target="#modalLogin" [routerLink]="['/login']" > <!--data-target="#modalLogin"-->
                             <i class="fas fa-sign-in-alt"></i>
                             Login
                         </a>
                     </li>
+
+                    
+
+                    <li class="nav-item" routerLinkActive="active" *ngIf='userIsLogin()'> 
+                        <a class="nav-link" data-toggle="modal" data-target="#modalLogin" [routerLink]="['/sidenav']" > <!--data-target="#modalLogin"-->
+                            <i class="fas fa-tasks"></i>
+                            funciones
+                        </a>
+                    </li>
+
+                    
+
+                    <li class="nav-item" routerLinkActive="active" > 
+                        <a class="nav-link" data-toggle="modal" data-target="#modalLogin" [routerLink]="['/crearConvocatoria']" > <!--data-target="#modalLogin"-->
+                            <i class="fas fa-file-alt"></i>
+                            Crear Convocatoria
+                        </a>
+                    </li>
+
+                    <li class="nav-item" routerLinkActive="active" > 
+                        <a class="nav-link" data-toggle="modal" data-target="#modalLogin" [routerLink]="['/consultarConvocatoria']" > <!--data-target="#modalLogin"-->
+                            <i class="fas fa-file-alt"></i>
+                            Consultar Convocatoria
+                        </a>
+                    </li>
+
                 </ul> 
-                <div class=" ml-auto d-flex flex-column ">
+
+                <div class="ml-auto d-flex flex-column ">
                     <!--<form class="form-inline mt-3 mb-2"> *********************--> 
                     <div class="form-inline mt-3 mb-2">
                         <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
@@ -74,17 +78,19 @@
                     </div>
                     <!--</form>--> 
                     
-                    <div class="text-white  small d-flex flex-row p-0">
-                        <p class="">
-                            Dpto: Informatica Sistemas
-                        </p>
+                    <div class="text-white d-flex flex-row p-0">
+                        <P>
+                           Dpto de : {{ departamento }}
+                        </P>
 
-                        <p class="ml-auto">
-                            <i class="fas fa-sign-out-alt"></i>
-                            salir
-                        </p>
+                        <div class="ml-auto " *ngIf='userIsLogin()'>
+                            <i class="fas fa-sign-out-alt pr-3 large" style="color:orange" (mouseover)="logout=true" (mouseout)="logout=false" (click)="salir()"></i>
+                            <div  clas="" style="font-size:0.7em"  *ngIf='logout'>
+                                salir
+                            </div>
+                        </div>
                     </div> 
                 </div>
             </div>    
-    </div>
+    <!--</div>-->
 </nav>
