@@ -9,12 +9,16 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';//formulario
 })
 export class CrearConvocatoriaComponent implements OnInit {
   createForm: FormGroup;//es el formulario de login html
+  tiposDeConvocatoria:any[];
+  
   constructor() { }
 
   ngOnInit(): void {
     this.createForm = new FormGroup({
       
     });
+
+    this.tiposDeConvocatoria = [["1","laboratorio"],["2","docencia"]];
   }
 
 }

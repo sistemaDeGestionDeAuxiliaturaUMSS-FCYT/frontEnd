@@ -1,0 +1,56 @@
+<div class="text-white">
+    <div class="row justify-content-between bg-dark">
+        <div class="">
+            <h3 class="m-0 p-2">
+                Requisitos
+            </h3>
+        </div>
+
+        <div class="m-1">
+            <button type="button" class="m-0 px-2 btn btn-outline-success">
+                <i class="fas fa-plus mr-2"></i>
+                Añadir
+            </button>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="table-responsive">
+            <table class="table table-hover ">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                        <th scope="col">CRUD</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr id="moco" (click)="add($event)" > <!--class="table-active"-->
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>asdad</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                        <td>@sdfsd</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                        <td>@asdf</td>
+                    </tr>
+                </tbody>
+          </table>
+        </div>
+    </div>
+</div>

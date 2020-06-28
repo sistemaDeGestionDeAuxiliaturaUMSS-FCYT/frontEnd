@@ -5,102 +5,86 @@
                Consultar Convocatoria
            </h3>
         </div>
+        
         <!--AÑADIR en .html y .ts: formControlName="firstName", porcada input y sus respectivos validadores, esta tirando error por este motivo-->
+        
         <div>        
             <form [formGroup]="formulario">    
                 <div class="row">                      
                     <div class="form-group col-sm-12">
                         <label for="tipoConvocatoria">Tipo Convocatoria</label>
+                        
                         <select class="custom-select my-1 mr-sm-2" id="tipoConvocatoria">
                             <option selected>Choose...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option *ngFor="let tipoConvocatoria of tiposDeConvocatoria"  value="{{tipoConvocatoria[0]}}">
+                                {{tipoConvocatoria[1]}}
+                            </option>
                         </select>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group col-sm-12 col-md-6">
-                        <label for="gestiontipoConvocatoria">Gestion</label>
-                        <select class="custom-select my-1 mr-sm-2" id="gestionConvocatoria">
-                            <option selected>Choose...</option>
-                            <option value="1">2018</option>
-                            <option value="2">2019</option>
-                            <option value="3">2020</option>
-                          </select>
+                        <label for="gestionConvocatoria">Gestion : </label>
+                        <input type="text" class="form-control my-1" id="gestionConvocatoria" placeholder="Gestion">                
                     </div>
 
                     <div class="form-group col-sm-12 col-md-6">
-                        <label for="gestiontipoConvocatoria">Estado</label>
-                        <select class="custom-select my-1 mr-sm-2" id="gestionConvocatoria">
+                        <label for="estadoConvocatoria">Estado</label>                        
+                        <select class="custom-select my-1" id="estadoConvocatoria">
                             <option selected>Choose...</option>
-                            <option value="1">En configuracion</option>
-                            <option value="2">En curso</option>
-                            <option value="3">Inpugnado</option>
-                          </select>
+                            <option *ngFor="let estadoDeConvocatoria of estadosDeConvocatoria"  value="{{estadoDeConvocatoria[0]}}">
+                                {{estadoDeConvocatoria[1]}}
+                            </option>
+                        </select>
                     </div>                  
                 </div>
                 
                 <div class="row">
                     <button type="submit" class="btn btn-primary ml-auto mr-3">Buscar</button>
-                </div>
-                
-                <div class="row p-3">
-                    <div class="table-responsive">
-                        <table class="table table-hover ">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
-                                </tr>
-                            </thead>
+                </div>                              
+            </form>      
 
-                            <tbody>
-                                <tr> <!--class="table-active"-->
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                            </tbody>
-                      </table>
-                    </div>
-                </div>
+            <div class="row p-3">            
+                <div class="table-responsive">
+                    <table class="table table-hover ">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Fecha Inicio</th>
+                                <th scope="col">Fecha Fin</th>
+                            </tr>
+                        </thead>
 
-                <div class="row p-3">
-                    <div class="form-group col-sm-10 col-md-5">
-                        <label for="gestiontipoConvocatoria">Accion</label>
-                        <select class="custom-select my-1 mr-sm-2" id="gestionConvocatoria">
-                            <option selected>Choose...</option>
-                            <option value="1">En configuracion</option>
-                            <option value="2">En curso</option>
-                            <option value="3">Inpugnado</option>
-                          </select>
-                    </div>  
+                        <tbody>
+                            <tr  *ngFor="let convocatoria of convocatorias" id="{{convocatoria[0]}}" (click)="seleccionarConvocatoria(convocatoria[0])" >
+                                <th scope="row">{{convocatoria[0]}} </th>
+                                <td>{{convocatoria[1]}}</td>
+                                <td>{{convocatoria[2]}}</td>
+                                <td>{{convocatoria[3]}}</td>
+                            </tr>
+                        </tbody>
 
-                    <div class="ml-auto mb-auto mt-auto">
-                        <button type="submit" class="btn btn-primary ml-auto mr-3">Hacer</button>
-                    </div>  
+                  </table>
                 </div>
-                
-                
-                
-            </form>        
+            </div>
+
+            <div class="row p-3">
+                <div class="form-group col-sm-10 col-md-5">
+                    <label for="gestiontipoConvocatoria">Accion</label>
+                    <select class="custom-select my-1 mr-sm-2" id="accionConvocatoria">
+                        <option selected>Choose...</option>
+                        <option *ngFor="let accionParaConvocatoria of accionesParaConvocatoria"  value="{{accionParaConvocatoria[0]}}">
+                            {{accionParaConvocatoria[1]}}
+                        </option>
+                    </select>
+                </div>  
+
+                <div class="ml-auto mb-auto mt-auto">
+                    <button type="submit" class="btn btn-primary ml-auto mr-3">Hacer</button>
+                </div>  
+            </div>
         </div>    
     </div>
-    </div>
+    </div>           

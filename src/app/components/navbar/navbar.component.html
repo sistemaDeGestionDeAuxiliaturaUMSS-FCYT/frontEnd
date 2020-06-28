@@ -52,23 +52,33 @@
                         </a>
                     </li>
 
-                    
-
-                    <li class="nav-item" routerLinkActive="active" > 
-                        <a class="nav-link" data-toggle="modal" data-target="#modalLogin" [routerLink]="['/crearConvocatoria']" > <!--data-target="#modalLogin"-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="convocatoria" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-file-alt"></i>
-                            Crear Convocatoria
+                            Convocatoria
                         </a>
+                        <div class="dropdown-menu" aria-labelledby="convocatoria">
+                            <a class="dropdown-item" [routerLink]="['/crearConvocatoria']">
+                                <i class="fas fa-plus"></i>
+                                Crear Convocatoria
+                            </a>
+                            
+                            <a class="dropdown-item" [routerLink]="['/consultarConvocatoria']">
+                                <i class="fas fa-question"></i>
+                                Consultar Convocatoria
+                            </a>
+                        </div>
                     </li>
 
-                    <li class="nav-item" routerLinkActive="active" > 
-                        <a class="nav-link" data-toggle="modal" data-target="#modalLogin" [routerLink]="['/consultarConvocatoria']" > <!--data-target="#modalLogin"-->
-                            <i class="fas fa-file-alt"></i>
-                            Consultar Convocatoria
+                    <li class="nav-item" routerLinkActive="active"> 
+                        <a class="nav-link" data-toggle="modal" data-target="#modalLogin" [routerLink]="['/configurarConvocatoria']" > <!--data-target="#modalLogin"-->
+                            <i class="fas fa-tasks"></i>
+                            Configurar Convocatoria
                         </a>
                     </li>
-
                 </ul> 
+
+                
 
                 <div class="ml-auto d-flex flex-column ">
                     <!--<form class="form-inline mt-3 mb-2"> *********************--> 

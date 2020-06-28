@@ -17,10 +17,15 @@ import { LoginComponent } from './components/login/login.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { NosotrosComponent } from './components/nosotros/nosotros.component';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { CrearConvocatoriaComponent } from './components/crear-convocatoria/crear-convocatoria.component';
 import { ConsultarConvocatoriaComponent } from './components/consultar-convocatoria/consultar-convocatoria.component';
-
+import { ConfigurarConvocatoriaComponent } from './components/configurar-convocatoria/configurar-convocatoria/configurar-convocatoria.component';
+import { RequerimientosComponent } from './components/configurar-convocatoria/requerimientos/requerimientos.component';
+import { RequisitosComponent } from './components/configurar-convocatoria/requisitos/requisitos.component';
+import { DocumentosAPresentarComponent } from './components/configurar-convocatoria/documentos-a-presentar/documentos-a-presentar.component';
+import { CalificacionDeMeritosComponent } from './components/configurar-convocatoria/calificacion-de-meritos/calificacion-de-meritos.component';
+import { CalificacionDeConocimientosComponent } from './components/configurar-convocatoria/calificacion-de-conocimientos/calificacion-de-conocimientos.component';
+import { EventosComponent } from './components/configurar-convocatoria/eventos/eventos.component';
 
 //utilitarios
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -31,14 +36,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
-//import { from } from 'rxjs';
-
 
 const routes: Routes = [
   { path: 'inicio', component: InicioComponent}, //InicioComponent
   { path: 'login', component: LoginComponent},
   { path: 'nosotros', component: NosotrosComponent}, //NosotrosComponent
-  { path: 'sidenav', component: SidenavComponent},
+  { path: 'configurarConvocatoria', component: ConfigurarConvocatoriaComponent},
   { path: 'crearConvocatoria', component: CrearConvocatoriaComponent},
   { path: 'consultarConvocatoria', component: ConsultarConvocatoriaComponent},
   { path: '', component: InicioComponent, pathMatch:'full'},
@@ -53,9 +56,15 @@ const routes: Routes = [
     FooterComponent,
     InicioComponent,
     NosotrosComponent,
-    SidenavComponent,
     CrearConvocatoriaComponent,
-    ConsultarConvocatoriaComponent
+    ConsultarConvocatoriaComponent,
+    ConfigurarConvocatoriaComponent,
+    RequerimientosComponent,
+    RequisitosComponent,
+    DocumentosAPresentarComponent,
+    CalificacionDeMeritosComponent,
+    CalificacionDeConocimientosComponent,
+    EventosComponent
   ],
   imports: [
     BrowserModule,
