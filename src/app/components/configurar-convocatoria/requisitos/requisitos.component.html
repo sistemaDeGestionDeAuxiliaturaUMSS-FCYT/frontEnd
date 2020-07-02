@@ -1,13 +1,13 @@
-<div class="text-white">
+<div>
     <div class="row justify-content-between bg-dark">
         <div class="">
-            <h3 class="m-0 p-2">
+            <h3 class="m-0 p-2 text-white">
                 Requisitos
             </h3>
         </div>
 
         <div class="m-1">
-            <button type="button" class="m-0 px-2 btn btn-outline-success">
+            <button type="button" class="m-0 px-2 btn btn-outline-success" (click)="limpiarFormulario(); activarbanderaAddRequerimiento()" data-toggle="modal" data-target="#addRequisitosModal">
                 <i class="fas fa-plus mr-2"></i>
                 Añadir
             </button>
@@ -18,39 +18,61 @@
         <div class="table-responsive">
             <table class="table table-hover ">
                 <thead class="thead-light">
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                        <th scope="col">CRUD</th>
+                    <tr align="center">
+                        <th>#</th>
+                        <th>Nombre del requisito</th>
+                        <th>Opciones</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr id="moco" (click)="add($event)" > <!--class="table-active"-->
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>asdad</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>@sdfsd</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>@asdf</td>
-                    </tr>
+                    <tr align="center" *ngFor="let requisito of listaRequisitosSeleccionados; index as i"> <!--class="table-active"-->
+                        <th >{{i+1}} </th>
+                        <td align="left">{{requisito[1]}} </td>
+                        <td>
+                            <div class="row mx-1">
+                                <button type="button" class="btn btn-outline-primary mx-1 col" (click)="limpiarFormulario(); desactivarbanderaAddRequerimiento(); setIdRequisitoEditar(requisito[0]) " data-toggle="modal" data-target="#addRequisitosModal">
+                                    <i class="fas fa-edit"></i> 
+                                </button>
+                                <button type="button" class="btn btn-outline-danger mx-1 col" (click)="eliminarRequisito(requisito[0])">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>                   
                 </tbody>
           </table>
         </div>
     </div>
+
+    <!-- MODAL -->
+    <div class="modal fade" id="addRequisitosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLongTitle">Requisitos</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+                <form [formGroup]="formulario" id="formulario">                                            
+                    <div class="form-group">
+                        <label for="areaDeRequisito">Descripción del requisito</label>
+                        <textarea class="form-control" id="areaDeRequisito" rows="3" (keyup)="validarAreaRequisito()" formControlName="areaRequisito"></textarea>
+                        <div class="invalid-feedback">La descripción no puede estar vacia * </div>
+                    </div>
+                </form>
+            </div>
+        
+            <div class="modal-footer">
+                <button type="button" id="botonCancel" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="botonAdd" class="btn btn-success" (click)="addRequisito()" *ngIf="banderaAdd">Añadir</button>
+                <button type="button" id="botonUpdate" class="btn btn-primary" (click)="editarRequisito()" *ngIf="!banderaAdd" >Modificar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    
 </div>

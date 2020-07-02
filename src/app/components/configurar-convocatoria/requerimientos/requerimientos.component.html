@@ -6,84 +6,105 @@
             </h3>
         </div>
 
-        <div class="m-1">
-            <button type="button" class="m-0 px-2 btn btn-outline-success" data-toggle="modal" data-target="#exampleModalCenter">
+        <div class="m-1"> <!--banderaAdd-->
+            <button type="button" class="m-0 px-2 btn btn-outline-success" (click)="limpiarFormulario(); activarListaItemsDisponibles(); activarbanderaAddItem()" data-toggle="modal" data-target="#addItemModal">
                 <i class="fas fa-plus mr-2"></i>
                 Añadir
             </button>
-        </div>
-
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h3 class="modal-title" id="exampleModalLongTitle">Requerimientos</h3>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-
-                
-                <div class="modal-body">
-                    <form [formGroup]="formulario" id="formulario">  <!--class="needs-validation"--> <!--class="was-validated"  *** required-->
-                        <div class="form-group">
-                            <label for="tipoConvocatoria">Item</label>                                                                                    
-                            <select class="custom-select my-1 mr-sm-2" id="tipoDeConvocatoria" (change)="validarFormulario()" (click)="validarFormulario()" formControlName="tipoDeConvocatoria">
-                                <option value="">Elegir un item...</option>
-                                <option value="1">Introduccion a la programacion</option>
-                                <option value="2">Elmentos de programacion</option>
-                                <option value="3">teoria de Grafos</option>
-                            </select>
-
-                            <div class="invalid-feedback">Elija un item ... </div>
-                        </div>
-                        
-                        <div class="form-row">                            
-                            <div class="form-group col-sm-12 col-md-6">
-                                <label for="numeroDeItems"># Items </label>
-                                <input type="text" class="form-control" id="numeroDeItems" (keyup)="validarFormulario()" (click)="validarFormulario()" formControlName="numeroDeItems"> 
-                            </div>
-        
-                            <div class="form-group col-sm-12 col-md-6">
-                                <label for="horasAcademicas">Horas academicas hrs/mes </label>
-                                <input type="text" class="form-control" id="horasAcademicas"  placeholder="Ej: 2 o 2.5" (keyup)="validarFormulario()"  (click)="validarFormulario()" formControlName="horasAcademicas">  <!--is-valid is-invalid-->                                
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            
-                <div class="modal-footer">
-                  <button type="button" id="botonCancelar" class="btn btn-secondary" data-dismiss="modal" (click)="limpiarFormulario()">Cancelar</button>
-                  <button type="button" id="botonEnviar" class="btn btn-primary" (click)="enviarFormulario()" >Añadir</button>
-                </div>
-              </div>
-            </div>
         </div>
     </div>
 
     <div class="row mt-3">
         <div class="table-responsive">
-            <table class="table table-hover ">
+            <table class="table table-hover">
                 <thead class="thead-light">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre Item</th>
-                        <th scope="col"># Items</th>
-                        <th scope="col">Horas Academicas (hrs/mes)</th>
-                        <th scope="col">Opciones</th>
+                    <tr align="center">
+                        <th>#</th>
+                        <th>Nombre Item</th>
+                        <th># Items Titular</th>
+                        <th># Items Ad Honorem</th>
+                        <th>Horas Academicas (hrs/mes)</th>
+                        <th>Opciones</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr> <!--class="table-active"-->
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>asdad</td>
-                    </tr>
+                    <tr align="center" *ngFor="let item of listaItemsSeleccionados; index as i">
+                        <th >{{i+1}} </th>
+                        <td align="left" >{{item[1]}}</td>
+                        <td >{{item[2]}}</td>
+                        <td >{{item[3]}}</td>
+                        <td >{{item[4]}}</td>
+                        <td>
+                            <div class="row mx-1">
+                                <button type="button" (click)="setIdItemEditar(item[0]); desactivarbanderaAddItem()" class="btn btn-outline-primary mx-1 col" data-toggle="modal" data-target="#addItemModal">
+                                    <i class="fas fa-edit"></i> 
+                                </button>
+                                <button type="button" (click)="eliminarItem(item[0])" class="btn btn-outline-danger mx-1 col">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>                    
                 </tbody>
           </table>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+
+    <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLongTitle">Requerimientos</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+                <form [formGroup]="formulario" id="formulario">  <!--class="needs-validation"--> <!--class="was-validated"  *** required-->
+                    <fieldset id="nombreItem">
+                        <div class="form-group">
+                            <label for="tipoConvocatoria">Item</label>                                                                                    
+                            <select class="custom-select my-1 mr-sm-2" id="tipoDeConvocatoria" (change)="validarSeleccionItem()" formControlName="tipoDeConvocatoria"> <!--formControlName="tipoDeConvocatoria"-->
+                                <option value="{{item[0]}}" *ngFor="let item of listaItemsDisponible">
+                                    {{item[2]}}
+                                </option>
+                            </select>                    
+                            <div class="invalid-feedback">Elija un item * </div>
+                        </div>
+                    </fieldset>
+                    
+                    <div class="form-row">                            
+                        <div class="form-group col-sm-12 col-md-4">
+                            <label for="numeroDeItems"># Items Titular </label>
+                            <input type="text" class="form-control" id="numeroDeItems" (keyup)="validarNumeroDeItemsTitular()"  formControlName="numeroDeItems"> 
+                            <div class="invalid-feedback">Escriba el numero de items titular * </div>
+                        </div>
+
+                        <div class="form-group col-sm-12 col-md-4">
+                            <label for="numeroDeItems"># Items Ad Honorem </label>
+                            <input type="text" class="form-control" id="numeroDeItemsAdHonorem" (keyup)="validarNumeroDeItemsAdHonorem()"  formControlName="numeroDeItems"> 
+                            <div class="invalid-feedback">Escriba el numero de items ad honorem * </div>
+                        </div>
+                        
+                        <div class="form-group col-sm-12 col-md-4">
+                            <label for="horasAcademicas">Hrs/mes </label>
+                            <input type="text" class="form-control" id="horasAcademicas"  placeholder="Ej: 2 o 2.5" (keyup)="validarHorasAcademicas()"   formControlName="horasAcademicas">  <!--is-valid is-invalid-->                                
+                            <div class="invalid-feedback"> Escriba las horas academicas * </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+            <div class="modal-footer">
+              <button type="button" id="botonCancelar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" id="botonEnviar" class="btn btn-success" (click)="addItem()" *ngIf="banderaAdd" >Añadir</button>
+              <button type="button" id="botonActualizar" class="btn btn-primary" (click)="editarItem()" *ngIf="!banderaAdd" >Modificar</button>
+            </div>
+          </div>
         </div>
     </div>
 </div>
