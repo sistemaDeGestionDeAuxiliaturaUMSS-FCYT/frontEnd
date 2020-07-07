@@ -1,0 +1,48 @@
+<div class="form-group">
+    <div class="row" >
+        <div class="col">
+            <div class="row m-1">
+                <label #tituloModificarDato class="" for="numeroDeItems" (mouseover)="mouseOver(tituloModificarDato)" (mouseout)="mouseOut(tituloModificarDato)" (click)="setMostrarOpciones()">
+                    <i class="fas fa-edit m-0 p-0"></i> 
+                    Modificar Dato 
+                    <i class="fas fa-chevron-down"></i>
+                </label>
+            </div>
+
+            <div *ngIf="mostrarOpciones">
+                <div class="row m-1" >
+                    <select class="form-control" id="">
+                        <option value="">Dato a modificar...</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+
+                
+                    <div class="row m-1">
+                        <input type="text" class="form-control col mr-1" id="" placeholder="Nombre del dato">
+                        <select class="form-control col ml-1" id="">
+                            <option value="">Tipo de dato...</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select> 
+                    </div>
+        
+                    <div class="row m-1">                                
+                        <input type="text" class="form-control col mr-1" id="" placeholder="Tamaño minimo"> 
+                        <input type="text" class="form-control col ml-1" id="" placeholder="Tamaño maximo"> 
+                    </div>     
+                
+
+                <div class="row m-1 justify-content-end" >
+                    <button type="button" id="" class="btn btn-outline-secondary mr-1"><i class="fas fa-times"></i></button>
+                    <button type="button" id="" class="btn btn-outline-primary ml-1"><i class="fas fa-edit m-0 p-0"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

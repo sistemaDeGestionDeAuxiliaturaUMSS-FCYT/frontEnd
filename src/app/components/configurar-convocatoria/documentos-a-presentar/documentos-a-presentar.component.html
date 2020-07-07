@@ -1,1 +1,81 @@
-<p>documentos-a-presentar works!</p>
+<div>
+    <div class="row justify-content-between bg-dark">
+        <div class="">
+            <h3 class="m-0 p-2 text-white">
+                3.- Documentos a presentar
+            </h3>
+        </div>
+
+        <div class="m-1">
+            <button type="button" class="m-0 px-2 btn btn-outline-success" (click)="limpiarFormularioDocumento(); activarBanderaAddDocumento()" data-toggle="modal" data-target="#addDocumentosModal">
+                <i class="fas fa-plus mr-2"></i>
+                Añadir
+            </button>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="table-responsive">
+            <table class="table table-hover table-sm">
+                <thead class="thead-light">
+                    <tr align="center">
+                        <th>#</th>
+                        <th>Descripción del documento</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr align="center" *ngFor="let documento of listaDocumentosSeleccionados; index as i"> <!--class="table-active"-->
+                        <th >{{i+1}} </th>
+                        <td align="left">{{documento[1]}} </td>
+                        <td class="bg-secondary row">
+                            <!--<div class="row mx-1">-->
+                                
+                                    <button type="button" class="btn btn-outline-primary col"   (click)="limpiarFormularioDocumento(); desactivarBanderaAddDocumento(); setIdDocumentoEditar(documento[0]) " data-toggle="modal" data-target="#addDocumentosModal">
+                                        <i class="fas fa-edit"></i> 
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger col"  (click)="eliminarDocumento(documento[0])">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                
+                            <!--</div>-->
+                        </td>
+                    </tr>                   
+                </tbody>
+          </table>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    
+    <div class="modal fade" id="addDocumentosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLongTitle">Documento</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+                <form [formGroup]="formularioDocumento" id="formulario">                                            
+                    <div class="form-group">
+                        <label for="areaDeDocumento">Descripción del documento</label>
+                        <textarea class="form-control" id="areaDeDocumento" rows="5" (keyup)="validarAreaDocumento()" formControlName="areaDocumento"></textarea>
+                        <div class="invalid-feedback">La descripción no puede estar vacia * </div>
+                    </div>
+                </form>
+            </div>
+        
+            <div class="modal-footer">
+                <button type="button" id="botonCancelDocumento" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="botonAddDocumento" class="btn btn-success" (click)="addDocumento()" *ngIf="banderaAddDocumento">Añadir</button>
+                <button type="button" id="botonUpdateDocumento" class="btn btn-primary" (click)="editarDocumento()" *ngIf="!banderaAddDocumento" >Modificar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+</div>

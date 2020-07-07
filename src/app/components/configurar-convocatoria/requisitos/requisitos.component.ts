@@ -34,7 +34,7 @@ export class RequisitosComponent implements OnInit {
     this.banderaAdd = true;
     let requisito = document.getElementById('areaDeRequisito');
     let requisitoText = (<HTMLInputElement>requisito).value;
-    if(this.esTextoValido(requisitoText)){
+    if(this.validarAreaRequisito()){
       requisito.classList.add('is-valid');
       let listaAux:string[] = [];
       listaAux.push(this.idLista+"");

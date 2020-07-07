@@ -26,6 +26,10 @@ import { DocumentosAPresentarComponent } from './components/configurar-convocato
 import { CalificacionDeMeritosComponent } from './components/configurar-convocatoria/calificacion-de-meritos/calificacion-de-meritos.component';
 import { CalificacionDeConocimientosComponent } from './components/configurar-convocatoria/calificacion-de-conocimientos/calificacion-de-conocimientos.component';
 import { EventosComponent } from './components/configurar-convocatoria/eventos/eventos.component';
+import { DatosRotuloComponent } from './components/configurar-convocatoria/datos-rotulo/datos-rotulo.component';
+import { ModificarDatoRotuloComponent } from './components/configurar-convocatoria/modificar-dato-rotulo/modificar-dato-rotulo.component';
+import { AniadirDatoRotuloComponent } from './components/configurar-convocatoria/aniadir-dato-rotulo/aniadir-dato-rotulo.component';
+
 
 //utilitarios
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -64,7 +68,10 @@ const routes: Routes = [
     DocumentosAPresentarComponent,
     CalificacionDeMeritosComponent,
     CalificacionDeConocimientosComponent,
-    EventosComponent
+    EventosComponent,
+    DatosRotuloComponent,
+    ModificarDatoRotuloComponent,
+    AniadirDatoRotuloComponent
   ],
   imports: [
     BrowserModule,
