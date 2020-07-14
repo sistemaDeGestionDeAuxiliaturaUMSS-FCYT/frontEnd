@@ -22,7 +22,7 @@ export class SesionService {
       },
       error=>{
         //console.log(error);
-        alert("Error de accesoa  la base de datos navbar ***");
+        //alert("Error de accesoa  la base de datos navbar ***");
     });
   }
   //-----------------------------------------------------------

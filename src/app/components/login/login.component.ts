@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         },
         error=>{
           //console.log(error);
-          alert("Error de accesoa  la base de datos login");
+          //alert("Error de accesoa  la base de datos login");
         }
       );  
   }

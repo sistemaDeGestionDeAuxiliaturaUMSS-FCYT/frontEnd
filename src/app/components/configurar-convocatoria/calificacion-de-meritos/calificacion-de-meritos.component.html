@@ -1,1 +1,111 @@
-<p>calificacion-de-meritos works!</p>
+<div class="d-flex flex-row bg-dark py-1 px-3 mb-1">
+    <h3 class="text-white my-auto mr-auto">
+        5.- De la calificación de méritos :
+    </h3>
+
+    <div class="d-flex flex-row mx-1">  
+        <input type="text" class="form-control mr-2 col-sm-6" id="porcentajeTotalMeritos" placeholder="Total puntos (%) Ej:100" value="" (keyup.enter)="setPorcenatjeTotal()">
+        <button type="button" class="btn btn-outline-warning mr-2" (click)="setPorcenatjeTotal()">
+            <i class="fas fa-check"></i>
+        </button>
+        <h3 class="text-white my-auto ml-2">
+            Evaluacion: {{porcentajeTotal}}%
+        </h3>
+    </div>
+
+    <button type="button" class="btn btn-outline-success " (click)="setNivelyIdMerito(1,'-1'); limpiarCampos()" data-toggle="modal" data-target="#addNotaMerito">
+        <i class="fas fa-plus mr-2"></i>
+        Añadir
+    </button>
+</div>
+
+<div class="d-flex flex-row">
+    <div class="table-responsive">
+        <table class="table table-hover table-sm">
+            <thead class="thead-light">
+                <tr align="center">
+                    <th width="5%">#</th>
+                    <th width="60%">Descripcion merito</th>
+                    <th width="25%">Puntos </th>
+                    <th width="10%">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody class="">
+                <tr align="left" *ngFor="let merito of listaTodosLosNiveles; index as i" class="font-weight-bold">
+                    <td   class="pl-2  text-uppercase" *ngIf="merito[0]==1" style="background-color: #F0E68C;">{{merito[1]}} </td>
+                    <td   class="pl-3 text-primary" *ngIf="merito[0]==2">{{merito[1]}} </td>
+                    <td   class="pl-4 text-danger" *ngIf="merito[0]==3">{{merito[1]}} </td>
+                    <td   class="pl-5 font-italic font-weight-normal" *ngIf="merito[0]==4">{{merito[1]}}</td>
+                    
+                    <td  class="pl-2  text-uppercase" *ngIf="merito[0]==1" style="background-color: #F0E68C;">{{merito[3]}}</td>
+                    <td  class="pl-3 text-primary" *ngIf="merito[0]==2">{{merito[3]}}</td>
+                    <td  class="pl-4 text-danger" *ngIf="merito[0]==3">{{merito[3]}}</td>
+                    <td  class="pl-5 font-italic font-weight-normal" *ngIf="merito[0]==4">{{merito[3]}}</td>
+
+                    <td  class="pl-2  text-uppercase" *ngIf="merito[0]==1" style="background-color: #F0E68C;">{{merito[4]}}%</td>
+                    <td  class="pl-3 text-primary" *ngIf="merito[0]==2">{{merito[4]}}%</td>
+                    <td  class="pl-4 text-danger" *ngIf="merito[0]==3">{{merito[4]}}%   </td>
+                    <td  class="pl-5 font-italic font-weight-normal" *ngIf="merito[0]==4">{{merito[4]}}</td>
+                    
+                    <td class="d-flex flex-row justify-content-center">                                                                                                                              <!-- nivel  ,  id -->
+                        <button type="button" class="btn btn-outline-success col-sm-4 col-lg-3 m-1" *ngIf="merito[0]!=4" (click)="setNivelyIdMerito(merito[0]+1,merito[1]); limpiarCampos()" data-toggle="modal" data-target="#addNotaMerito">
+                            <i class="fas fa-plus"></i> <!--add-->
+                        </button>                        
+                        
+                        <button type="button" class="btn btn-outline-white col-sm-4 col-lg-3 m-1" *ngIf="merito[0]==4" [disabled]="true">                           
+                        </button>
+
+                        <button type="button" class="btn btn-outline-primary col-sm-4 col-lg-3 m-1" (click)="editarMerito(merito[5])">
+                            <i class="fas fa-edit"></i>  <!--edit-->
+                        </button>
+                        
+                        <button type="button" class="btn btn-outline-danger col-sm-4 col-lg-3 m-1" (click)="eliminarMerito(merito[5])">
+                            <i class="fas fa-trash-alt"></i> <!--remove-->
+                        </button>                        
+                    </td>
+                </tr>
+            </tbody>
+      </table>
+    </div>
+</div>
+
+
+<!-- MODAL -->
+
+<div class="modal fade" id="addNotaMerito" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLongTitle">Tabla de meritos (Se evalua sobre {{porcentajeTotal}}%)</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+            <form [formGroup]="formularioMerito">                                            
+                <div class="form-row">                            
+                    <div class="form-group col-sm-12 col-lg-9">
+                        <label for="numeroDeItems">Descripcion del merito </label>
+                        <textarea class="form-control" id="descripcionMerito" rows="3" (keyup)="descripcionMeritoValido()"></textarea>
+                        <div class="invalid-feedback">Escriba la descripcion del merito * </div>
+                    </div>
+
+                    <div class="form-group col-sm-12 col-lg-3">
+                        <label for="numeroDeItems">Porcentaje </label>
+                        <input type="text" class="form-control" id="porcentajeEvaluacionMerito" (keyup)="porcentajeMeritoValido()" (keyup.enter)="guardarMeritoEnNivel()" placeholder="Ej: 20"> 
+                        <div class="invalid-feedback">{{mensajePorcentaje}} </div>
+                    </div>
+                </div>               
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" id="cancelarMeritoN1" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" id="guardarMerito" class="btn btn-success" (click)="guardarMeritoEnNivel()" >Guardar</button> 
+            
+        </div>
+      </div>
+    </div>
+</div>

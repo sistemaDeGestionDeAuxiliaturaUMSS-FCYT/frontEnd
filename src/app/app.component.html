@@ -133,31 +133,19 @@
   <div class="row h-100">
     <div class="col h-100">
       <div class="d-flex flex-column h-100">
-
-          <div class="row bg-dark"> 
-            <div class="col-sm-12">
-              <app-navbar></app-navbar>
-            </div>   
-          </div>
+			  <div class="row">
+          <app-navbar class="col bg-dark"></app-navbar>                   
+        </div>
         
-          <div class="row" >
-            <div class="col-sm-12">              
-              <router-outlet></router-outlet>
-            </div>
-          </div>
+        <div>
+            <router-outlet class="d-flex flex-column"></router-outlet>
+        </div>
 
-          <div class="row mt-auto bg-secondary" >
-            <div class="col-sm-12">
-              <app-footer></app-footer>
-            </div>
-          </div>  
-
+        <div class="row mt-auto bg-secondary" >
+          <app-footer class="col"></app-footer>
+        </div>  
       </div>
     </div>
   </div>
 </div>
-
-
-
-<!--<router-outlet></router-outlet>-->
 

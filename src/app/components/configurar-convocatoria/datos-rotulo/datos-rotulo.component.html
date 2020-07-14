@@ -1,54 +1,47 @@
-<div>
-    <div class="row justify-content-between bg-dark">
-        <div class="">
-            <h3 class="m-0 p-2 text-white">
-                4.- De la forma (Datos del posulante requeridos para el rotulo)
-            </h3>
-        </div>
+<div class="d-flex flex-row bg-dark py-1 px-3 mb-1">
+    <h3 class="text-white my-auto">
+        4.- De la forma (Datos del posulante requeridos para el rotulo) :
+    </h3>
 
-        <div class="m-1">
-            <button type="button" class="m-0 px-2 btn btn-outline-success" (click)="clickAniadir()" data-toggle="modal" data-target="#addTiposDatosRotuloModal">
-                <i class="fas fa-plus mr-2"></i>
-                Añadir
-            </button>
-        </div>
+    <button type="button" class="btn btn-outline-success ml-auto" (click)="clickAniadir()" data-toggle="modal" data-target="#addTiposDatosRotuloModal">
+        <i class="fas fa-plus mr-2"></i>
+        Añadir
+    </button>
+</div>
+
+<div class="d-flex flex-row">
+    <div class="table-responsive">
+        <table class="table table-hover table-sm">
+            <thead class="thead-light">
+                <tr align="center">
+                    <th width="5%">#</th>
+                    <th width="45%">Nombre dato</th>
+                    <th width="15%">Tipo de dato </th>
+                    <th width="10%">Tamaño minimo</th>
+                    <th width="15%">Tamaño maximo</th>
+                    <th width="10%">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody class="">
+                <tr align="center" *ngFor="let item of listaDatosSeleccionadosTabla; index as i">
+                    <th >{{i+1}} </th>
+                    <td align="left" >{{item[1]}}</td>
+                    <td>{{item[4]}}</td>
+                    <td>{{item[2]}}</td>
+                    <td>{{item[3]}}</td>
+                    <td class="d-flex flex-row justify-content-center">
+                        <button type="button" (click)="eliminarDatoDeLista(item[0])" class="btn btn-outline-danger col-sm-6 col-lg-4 m-1">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>                        
+                    </td>
+                </tr>                    
+            </tbody>
+      </table>
     </div>
+</div>
 
-    <div class="row mt-3">
-        <div class="table-responsive">
-            <table class="table table-hover table-sm">
-                <thead class="thead-light">
-                    <tr align="center">
-                        <th width="5%">#</th>
-                        <th width="42%">Nombre dato</th>
-                        <th width="15%">Tipo de dato </th>
-                        <th width="15%">Tamaño minimo</th>
-                        <th width="15%">Tamaño maximo</th>
-                        <th width="8%">Acciones</th>
-                    </tr>
-                </thead>
-
-                <tbody class="">
-                    <tr align="center" *ngFor="let item of listaDatosSeleccionadosTabla; index as i">
-                        <th >{{i+1}} </th>
-                        <td align="left" >{{item[1]}}</td>
-                        <td>{{item[4]}}</td>
-                        <td>{{item[2]}}</td>
-                        <td>{{item[3]}}</td>
-                        <td>
-                            <div class="row mx-1">
-                                <button type="button" (click)="eliminarDatoDeLista(item[0])" class="btn btn-outline-danger mx-5 col">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>                    
-                </tbody>
-          </table>
-        </div>
-    </div>
-
-    <!-- MODAL -->
+<!-- MODAL -->
 
     <div class="modal fade" id="addTiposDatosRotuloModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -102,4 +95,3 @@
         </div>
     </div>
     
-</div>
