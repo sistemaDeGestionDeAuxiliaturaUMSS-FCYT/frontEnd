@@ -1,1 +1,109 @@
-<p>eventos works!</p>
+<div class="d-flex flex-row bg-dark py-1 px-3 mb-1">
+  <h3 class="text-white my-auto">
+      7.- Eventos (Fechas en la convocatoria):
+  </h3>
+
+  <button type="button" class="btn btn-outline-success ml-auto" data-toggle="modal" data-target="#addEventoModal"> <!--(click)="setAniadirRequisito()"-->
+      <i class="fas fa-plus mr-2"></i>
+      Añadir
+  </button>
+</div>
+
+
+<div class="d-flex flex-row">
+  <div class="table-responsive">
+      <table class="table table-hover table-sm">
+          <thead class="thead-light">
+              <tr align="center">
+                  <th width="5%">#</th>
+                  <th width="45%">Nombre del evento</th>
+                  <th width="10%">Fecha Inicio</th>
+                  <th width="10%">Hora</th>
+                  <th width="10%">Fecha fin</th>
+                  <th width="10%">Evento</th>
+                  <th width="10%">Acciones</th>
+              </tr>
+          </thead>
+
+          <tbody>
+              <tr align="center" *ngFor="let evento of listaEventos; index as i">
+                  <th >{{i+1}} </th>
+                  <td align="left">{{evento[1]}} </td> <!--nombre-->
+                  <td align="left">{{evento[2]}} </td> <!--fecha inicio-->
+                  <td align="left">{{evento[3]}} </td> <!--hora-->
+                  <td align="left">{{evento[4]}} </td> <!--fecha fin-->
+                  <td align="left">{{evento[5]}} </td> <!--hora-->
+                  <td class="d-flex flex-row justify-content-center">                        
+                      <button type="button" class="btn btn-outline-primary col-sm-6 col-lg-4 m-1" data-toggle="modal" data-target="#addEventoModal">
+                          <i class="fas fa-edit"></i> <!--editar-->
+                      </button>
+                      <button type="button" class="btn btn-outline-danger col-sm-6 col-lg-4 m-1" >
+                          <i class="fas fa-trash-alt"></i> <!--eliminar-->
+                      </button>
+                  </td>
+              </tr>                   
+          </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- MODAL -->
+    
+<div class="modal fade" id="addEventoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLongTitle">Eventos</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+          <form [formGroup]="formularioEvento" id="idFormularioEvento">
+              <div class="form-group">
+                  <label for="tipoConvocatoria">Nombre del evento</label>                                                                                    
+                  <input type="text" class="form-control" id="idNombreEvento" (keyup)="nombreEventoValido()">                  
+                  <div class="invalid-feedback">Esbriba el nombre del evento * </div>
+              </div>
+              
+              <div class="form-row">                            
+                  <div class="form-group col-sm-12 col-md-8">
+                      <label for="numeroDeItems">Fecha inicio </label>
+                      <input type="text" type="date" class="form-control" id="idFechaInicio" (input)="fechaInicioValido(true)"> <!--min="2018-12-10" max="2018-12-31"-->
+                      <div class="invalid-feedback">{{mensajeFechaInicio}} </div>
+                  </div>
+
+                  <div class="form-group col-sm-12 col-md-4">
+                      <label for="numeroDeItems">Hora: "08:00 - 18:00" </label>
+                      <input type="text" type="time" class="form-control" id="idHoraInicio" (input)="horaInicioValido()"> 
+                      <div class="invalid-feedback">{{mensajeHoraInicio}} </div>
+                  </div>
+              </div>
+
+              <div class="form-row">                            
+                <div class="form-group col-sm-12 col-md-8">
+                    <label for="numeroDeItems">Fecha fin </label>
+                    <input type="date" class="form-control" id="idFechaFin" (input)="fechaFinValido(true)">
+                    <div class="invalid-feedback">{{mensajeFechaFin}} </div>
+                </div>
+
+                <div class="form-group col-sm-12 col-md-4">
+                    <label for="numeroDeItems">Hora: "08:00 - 18:00"</label>
+                    <input type="time" class="form-control" id="idHoraFin" (input)="horaFinValido()"> 
+                    <div class="invalid-feedback">{{mensajeHoraFin}} </div>
+                </div>
+            </div>
+          </form>
+      </div>
+  
+      <div class="modal-footer">
+        <button type="button" id="botonCancelar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" id="botonAdd" class="btn btn-success" (click)="guardarEvento()" *ngIf="banderaAdd">Añadir</button> <!--(click)="guardarEvento()" *ngIf="banderaAdd"-->
+        <button type="button" id="botonUpdate" class="btn btn-primary" (click)="guardarEvento()" *ngIf="!banderaAdd">Modificar</button> <!--(click)="guardarEvento()" *ngIf="!banderaAdd"-->
+      </div>
+    </div>
+  </div>
+</div>

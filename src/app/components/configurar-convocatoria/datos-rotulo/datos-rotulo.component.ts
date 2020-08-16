@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';//formularios , formularios reactivos, validadores de formularios
-
+import { FormGroup } from '@angular/forms';//formularios , formularios reactivos, validadores de formularios
 
 @Component({
   selector: 'app-datos-rotulo',
@@ -17,6 +16,7 @@ export class DatosRotuloComponent implements OnInit {
   banderaTodosSeleccionados:boolean;
   datosRotuloCheck:HTMLElement;
   inputSeleccionarTodos:HTMLInputElement;
+  mensajeError:string;
 
   constructor() {
     this.formularioDatoRotulo = new FormGroup({});
@@ -24,8 +24,6 @@ export class DatosRotuloComponent implements OnInit {
 
   ngOnInit(): void {
     //id, nombre, tam minimimo, tam maximo, tipo de dato
-    
-
     this.listaDatosBaseDeDatos = [
       ["12","Nombres","2","50","string"],
       ["13","Apellido paterno","2","50","string"],
@@ -39,17 +37,31 @@ export class DatosRotuloComponent implements OnInit {
     this.banderaTodosSeleccionados = false;
     this.datosRotuloCheck = document.getElementById('datosRotuloCheck');
     this.inputSeleccionarTodos = <HTMLInputElement>document.getElementById('todosLosDatos');
+    this.mensajeError = "Ninguna opción seleccionada *";
+
+    this.listaDatosSeleccionados.push(this.listaDatosBaseDeDatos[0]);
+    this.listaDatosSeleccionados.push(this.listaDatosBaseDeDatos[1]);
+    this.listaDatosSeleccionados.push(this.listaDatosBaseDeDatos[2]);
+
+    //document.getElementById(this.listaDatosBaseDeDatos[0][0]+"").setAttribute("disabled","");
+    
   }
 
   crearListaBandera(){
     for (let i = 0; i < this.listaDatosBaseDeDatos.length; i++) {
-      this.listaBandera.push(false);
+      if(i<3){
+        this.listaBandera[i] = true;
+      }else{
+        this.listaBandera.push(false);
+      }
     }
   }
 
   setListaBandera(bandera:boolean){
     for (let i = 0; i < this.listaDatosBaseDeDatos.length; i++) {
-      this.listaBandera[i] = bandera;     
+      if(i>=3){
+        this.listaBandera[i] = bandera;     
+      }
     }
   }
 
@@ -63,42 +75,35 @@ export class DatosRotuloComponent implements OnInit {
     //console.log(this.listaBandera);
   }
 
-  seleccionarTodosLosDatosDeLista(){
+  seleccionarTodosLosDatosDeLista():void{
     this.limpíarTodosLosDatosSeleccionados();
 
-    for (let i = 0; i < this.listaDatosBaseDeDatos.length; i++) {       
-      this.listaDatosSeleccionados.push(this.listaDatosBaseDeDatos[i]);
+    for (let i = 0; i < this.listaDatosBaseDeDatos.length; i++) {
+      if(i>=3){       
+        this.listaDatosSeleccionados.push(this.listaDatosBaseDeDatos[i]);
+      }
     }
     this.setListaBandera(true); 
     this.verificarBanderaTodosMarcados();
   }
 
   limpíarTodosLosDatosSeleccionados(){
-    this.listaDatosSeleccionados.splice(0);
+    this.listaDatosSeleccionados.splice(3);
     this.setListaBandera(false);
     this.verificarBanderaTodosMarcados();
-    this.datosRotuloCheck.classList.add('is-invalid');
+    //this.datosRotuloCheck.classList.add('is-invalid');
   }
 
   setDatoLista(idDato:string){
     let dato:HTMLInputElement = <HTMLInputElement>document.getElementById(idDato);    
     if(dato.checked){
       let index:number = this.getIndex(idDato,this.listaDatosBaseDeDatos);
-      let lista:string[]=[];
-      lista.push(this.listaDatosBaseDeDatos[index][0]);
-      lista.push(this.listaDatosBaseDeDatos[index][1]);
-      lista.push(this.listaDatosBaseDeDatos[index][2]);
-      lista.push(this.listaDatosBaseDeDatos[index][3]);
-      lista.push(this.listaDatosBaseDeDatos[index][4]);
-
-      this.listaDatosSeleccionados.push(lista);
-
-      
+      this.listaDatosSeleccionados.push(this.listaDatosBaseDeDatos[index]);      
       this.listaBandera[index] = true;
-
       this.datosRotuloCheck.classList.remove('is-invalid');      
       
       if(this.listaDatosSeleccionados.length == this.listaDatosBaseDeDatos.length){
+        console.log("todos seleccionados");
         this.banderaTodosSeleccionados = true;
       }else{
         this.banderaTodosSeleccionados = false;
@@ -141,25 +146,42 @@ export class DatosRotuloComponent implements OnInit {
     this.listaBandera[index] = false;
 
     this.verificarBanderaTodosMarcados();
+
+    console.log("-------------------");
+    console.log(this.listaBandera)
+    console.log(this.listaDatosSeleccionados);
   }
   
   clickAniadir(){
     this.datosRotuloCheck.classList.remove('is-invalid');
+    document.getElementById(this.listaDatosBaseDeDatos[0][0]).setAttribute("disabled","");
+    document.getElementById(this.listaDatosBaseDeDatos[1][0]).setAttribute("disabled","");
+    document.getElementById(this.listaDatosBaseDeDatos[2][0]).setAttribute("disabled","");
   }
 
   guardarDatos(){        
     let guardarModalDatos:HTMLElement = document.getElementById('guardarModalDatos');
-    
+    let nombresApellidosSeleccionados:boolean = this.nombresApellidosSeleccionados();
     if(this.listaDatosSeleccionados.length>0){
-      this.listaDatosSeleccionadosTabla.splice(0);
-      for (let i = 0; i < this.listaDatosSeleccionados.length; i++) {
-        this.listaDatosSeleccionadosTabla.push(this.listaDatosSeleccionados[i]);      
-      }      
-      guardarModalDatos.setAttribute("data-dismiss","modal");
+      if(nombresApellidosSeleccionados){
+        this.listaDatosSeleccionadosTabla.splice(0);
+        for (let i = 0; i < this.listaDatosSeleccionados.length; i++) {          
+          this.listaDatosSeleccionadosTabla.push(this.listaDatosSeleccionados[i]);      
+        }      
+        guardarModalDatos.setAttribute("data-dismiss","modal");
+      }else{
+        this.mensajeError = "Seleccione minimamente nombre, apellido paterno y apellido materno *";
+        guardarModalDatos.removeAttribute("data-dismiss");
+        this.datosRotuloCheck.classList.add('is-invalid');
+      }
     }else{
+      this.mensajeError = "Ninguna opción seleccionada *";
       guardarModalDatos.removeAttribute("data-dismiss");
       this.datosRotuloCheck.classList.add('is-invalid');
     }
+
+    console.log("lista datos seleccionados");
+    console.log(this.listaDatosSeleccionados);
   }
 
   cancelarGuardarDatos(){
@@ -187,5 +209,17 @@ export class DatosRotuloComponent implements OnInit {
     if(this.listaDatosSeleccionados.length==0){
       this.datosRotuloCheck.classList.add('is-invalid');
     }
+  }
+
+  nombresApellidosSeleccionados():boolean{
+    let seleccionados:boolean = true;
+    let i:number = 0;
+    while (i < 3 && seleccionados) {
+      if(!this.listaBandera[i]){
+        seleccionados = false;
+      }
+      i+=1;
+    }
+    return seleccionados;
   }
 }

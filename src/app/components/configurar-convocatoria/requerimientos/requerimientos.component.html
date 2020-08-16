@@ -3,7 +3,7 @@
         1.- Requerimientos :
     </h3>
 
-    <button type="button" class="btn btn-outline-success ml-auto" (click)="limpiarFormulario(); activarListaItemsDisponibles(); activarbanderaAddItem()" data-toggle="modal" data-target="#addItemModal">
+    <button type="button" class="btn btn-outline-success ml-auto" (click)="setAddItem()" data-toggle="modal" data-target="#addItemModal">
         <i class="fas fa-plus mr-2"></i>
         Añadir
     </button>
@@ -15,10 +15,11 @@
             <thead class="thead-light">
                 <tr align="center">
                     <th width="5%">#</th>
-                    <th width="50%">Nombre Item</th>
+                    <th width="10%">Código</th>
+                    <th width="45%">Nombre Item</th>
                     <th width="10%"># Items Titular</th>
                     <th width="10%"># Items Ad Honorem</th>
-                    <th width="15%">Horas Academicas (hrs/mes)</th>
+                    <th width="10%">Horas Academicas (hrs/mes)</th>
                     <th width="10%">Acciones</th>
                 </tr>
             </thead>
@@ -26,12 +27,13 @@
             <tbody>
                 <tr align="center" *ngFor="let item of listaItemsSeleccionados; index as i">
                     <th >{{i+1}} </th>
-                    <td align="left" >{{item[1]}}</td>
-                    <td >{{item[2]}}</td>
+                    <td >{{item[1]}}</td>
+                    <td align="left" >{{item[2]}}</td>
                     <td >{{item[3]}}</td>
                     <td >{{item[4]}}</td>
+                    <td >{{item[5]}}</td>
                     <td class="d-flex flex-row justify-content-center">                        
-                        <button type="button" (click)="setIdItemEditar(item[0]); desactivarbanderaAddItem()" class="btn btn-outline-primary col-sm-6 col-lg-4 m-1" data-toggle="modal" data-target="#addItemModal">
+                        <button type="button" (click)="setEditarItem(item[0])" class="btn btn-outline-primary col-sm-6 col-lg-4 m-1" data-toggle="modal" data-target="#addItemModal">
                             <i class="fas fa-edit"></i> 
                         </button>
                         <button type="button" (click)="eliminarItem(item[0])" class="btn btn-outline-danger col-sm-6 col-lg-4 m-1">
@@ -58,34 +60,36 @@
 
             <div class="modal-body">
                 <form [formGroup]="formulario" id="formulario">
-                    <fieldset id="nombreItem">
+                    <!--<fieldset id="nombreItema">-->
                         <div class="form-group">
                             <label for="tipoConvocatoria">Item</label>                                                                                    
-                            <select class="custom-select my-1 mr-sm-2" id="tipoDeConvocatoria" (change)="validarSeleccionItem()" formControlName="tipoDeConvocatoria">
-                                <option value="{{item[0]}}" *ngFor="let item of listaItemsDisponible">
+                            <select class="custom-select my-1 mr-sm-2" id="idItem" (change)="itemValido()"> <!--(change)="validarSeleccionItem()"     -    disabled--> 
+                                <option value="itemDefault" id="itemDefault">{{opcion}}</option>                                            
+                                
+                                <option value="{{item[0]}}" id="{{item[0]}}" *ngFor="let item of listaItemsDisponible" >
                                     {{item[2]}}
                                 </option>
                             </select>                    
                             <div class="invalid-feedback">Elija un item * </div>
                         </div>
-                    </fieldset>
+                    <!--</fieldset>-->
                     
                     <div class="form-row">                            
                         <div class="form-group col-sm-12 col-md-4">
                             <label for="numeroDeItems"># Items Titular </label>
-                            <input type="text" class="form-control" id="numeroDeItems" (keyup)="validarNumeroDeItemsTitular()"  formControlName="numeroDeItems"> 
+                            <input type="text" class="form-control" id="numeroDeItemsTitular" (keyup)="numItemsTitularValido()"> <!--(keyup)="validarNumeroDeItemsTitular()"--> 
                             <div class="invalid-feedback">Escriba el numero de items titular * </div>
                         </div>
 
                         <div class="form-group col-sm-12 col-md-4">
                             <label for="numeroDeItems"># Items Ad Honorem </label>
-                            <input type="text" class="form-control" id="numeroDeItemsAdHonorem" (keyup)="validarNumeroDeItemsAdHonorem()"  formControlName="numeroDeItems"> 
+                            <input type="text" class="form-control" id="numeroDeItemsAdHonorem" (keyup)="numItemsAdHonoremValido()"> <!--(keyup)="validarNumeroDeItemsAdHonorem()"-->
                             <div class="invalid-feedback">Escriba el numero de items ad honorem * </div>
                         </div>
                         
                         <div class="form-group col-sm-12 col-md-4">
                             <label for="horasAcademicas">Hrs/mes </label>
-                            <input type="text" class="form-control" id="horasAcademicas"  placeholder="Ej: 2 o 2.5" (keyup)="validarHorasAcademicas()"   formControlName="horasAcademicas">                         
+                            <input type="text" class="form-control" id="horasAcademicas"  placeholder="Ej: 2 o 2.5" (keyup)="hrsAcademicasValido()"> <!-- (keyup)="validarHorasAcademicas()"-->                         
                             <div class="invalid-feedback"> Escriba las horas academicas * </div>
                         </div>
                     </div>
@@ -94,8 +98,8 @@
         
             <div class="modal-footer">
               <button type="button" id="botonCancelar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="button" id="botonEnviar" class="btn btn-success" (click)="addItem()" *ngIf="banderaAdd" >Añadir</button>
-              <button type="button" id="botonActualizar" class="btn btn-primary" (click)="editarItem()" *ngIf="!banderaAdd" >Modificar</button>
+              <button type="button" id="botonAdd" class="btn btn-success" (click)="guardarItem()" *ngIf="banderaAdd" >Añadir</button>
+              <button type="button" id="botonUpdate" class="btn btn-primary" (click)="guardarItem()" *ngIf="!banderaAdd" >Modificar</button>
             </div>
           </div>
         </div>

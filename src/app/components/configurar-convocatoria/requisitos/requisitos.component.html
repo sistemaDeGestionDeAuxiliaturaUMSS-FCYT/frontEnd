@@ -3,7 +3,7 @@
         2.- Requisitos :
     </h3>
 
-    <button type="button" class="btn btn-outline-success ml-auto" (click)="limpiarFormulario(); activarbanderaAddRequerimiento()" data-toggle="modal" data-target="#addRequisitosModal">
+    <button type="button" class="btn btn-outline-success ml-auto" (click)="setAniadirRequisito()" data-toggle="modal" data-target="#addRequisitosModal">
         <i class="fas fa-plus mr-2"></i>
         Añadir
     </button>
@@ -25,11 +25,11 @@
                     <th >{{i+1}} </th>
                     <td align="left">{{requisito[1]}} </td>
                     <td class="d-flex flex-row justify-content-center">                        
-                        <button type="button" class="btn btn-outline-primary col-sm-6 col-lg-4 m-1" (click)="limpiarFormulario(); desactivarbanderaAddRequerimiento(); setIdRequisitoEditar(requisito[0]) " data-toggle="modal" data-target="#addRequisitosModal">
-                            <i class="fas fa-edit"></i> 
+                        <button type="button" class="btn btn-outline-primary col-sm-6 col-lg-4 m-1" (click)=" setEditarRequisito(requisito[0]); " data-toggle="modal" data-target="#addRequisitosModal">
+                            <i class="fas fa-edit"></i> <!--editar-->
                         </button>
                         <button type="button" class="btn btn-outline-danger col-sm-6 col-lg-4 m-1" (click)="eliminarRequisito(requisito[0])">
-                            <i class="fas fa-trash-alt"></i>
+                            <i class="fas fa-trash-alt"></i> <!--eliminar-->
                         </button>
                     </td>
                 </tr>                   
@@ -37,6 +37,8 @@
       </table>
     </div>
 </div>
+
+<!-- MODAL -->
 
 <div class="modal fade" id="addRequisitosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -52,7 +54,7 @@
             <form [formGroup]="formulario" id="formulario">                                            
                 <div class="form-group">
                     <label for="areaDeRequisito">Descripción del requisito</label>
-                    <textarea class="form-control" id="areaDeRequisito" rows="3" (keyup)="validarAreaRequisito()" formControlName="areaRequisito"></textarea>
+                    <textarea class="form-control" id="areaDeRequisito" rows="5" (keyup)="validarAreaRequisito()" (keyup.enter)="guardarRequisito()"></textarea>
                     <div class="invalid-feedback">La descripción no puede estar vacia * </div>
                 </div>
             </form>
@@ -60,8 +62,8 @@
     
         <div class="modal-footer">
             <button type="button" id="botonCancel" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" id="botonAdd" class="btn btn-success" (click)="addRequisito()" *ngIf="banderaAdd">Añadir</button>
-            <button type="button" id="botonUpdate" class="btn btn-primary" (click)="editarRequisito()" *ngIf="!banderaAdd" >Modificar</button>
+            <button type="button" id="botonAdd" class="btn btn-success" (click)="guardarRequisito()" *ngIf="banderaAdd">Añadir</button>
+            <button type="button" id="botonUpdate" class="btn btn-primary" (click)="guardarRequisito()" *ngIf="!banderaAdd" >Modificar</button>
         </div>
       </div>
     </div>

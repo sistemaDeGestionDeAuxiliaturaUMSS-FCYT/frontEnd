@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
 import { FormGroup, FormControl, Validators } from '@angular/forms';//formularioDocumentos , formularioDocumentos reactivos, validadores de formularioDocumentos
 
+declare var $: any;
 
 @Component({
   selector: 'app-documentos-a-presentar',
@@ -25,42 +25,57 @@ export class DocumentosAPresentarComponent implements OnInit {
     this.idDocumento = 1;
   }
 
-
-  addDocumento(){
-    let botonAdd = document.getElementById("botonAddDocumento");    
-    botonAdd.removeAttribute("data-dismiss");
-
+  setAniadirDocumento():void{
+    this.limpiarFormularioDocumento();
     this.banderaAddDocumento = true;
-    let documento = document.getElementById('areaDeDocumento');
-    let documentoText = (<HTMLInputElement>documento).value;
+  }
 
-    console.log("aaaa");
-    if(this.validarAreaDocumento()){
-      documento.classList.add('is-valid');
-      let listaAux:string[] = [];
-      listaAux.push(this.idDocumento+"");
-      listaAux.push(documentoText);
-      this.listaDocumentosSeleccionados.push(listaAux); 
-      this.idDocumento += 1;
-      
-      console.log("bbb");
-      
-      botonAdd.setAttribute("data-dismiss","modal");
+  setEditarDocumento(idDocumento:string):void{
+    this.limpiarFormularioDocumento();
+    this.idDocumentoEditar = idDocumento;
+    let indexDocumento = this.getIndex(this.idDocumentoEditar,this.listaDocumentosSeleccionados); 
+    (<HTMLFormElement>document.getElementById("areaDeDocumento")).value = this.listaDocumentosSeleccionados[indexDocumento][1];
+
+    this.banderaAddDocumento = false;
+  }
+
+  guardarDocumento():void{
+    if(this.banderaAddDocumento){//guardar
+      document.getElementById("botonAddDocumento").removeAttribute("data-dismiss");
+      if(this.validarAreaDocumento()){
+        let documentoText = (<HTMLInputElement>document.getElementById('areaDeDocumento')).value;
+        let listaAux:string[] = [];
+        listaAux.push(this.idDocumento+"");
+        listaAux.push(documentoText);
+        this.listaDocumentosSeleccionados.push(listaAux); 
+        this.idDocumento += 1;     
+        
+        $('#addDocumentosModal').modal('hide');
+        document.getElementById("botonAddDocumento").setAttribute("data-dismiss","modal");
+      }
+    }else{ // editar 
+      document.getElementById("botonUpdateDocumento").removeAttribute("data-dismiss");
+      if(this.validarAreaDocumento()){
+        let index = this.getIndex(this.idDocumentoEditar,this.listaDocumentosSeleccionados);
+        let documentoText = (<HTMLInputElement>document.getElementById('areaDeDocumento')).value;
+        this.listaDocumentosSeleccionados[index][1] = documentoText;
+        $('#addDocumentosModal').modal('hide');
+        document.getElementById("botonUpdateDocumento").setAttribute("data-dismiss","modal");
+      }    
     }
   }
 
-  editarDocumento(){
-    this.banderaAddDocumento = false;
-    let botoUpdate = document.getElementById("botonUpdateDocumento");    
-    botoUpdate.removeAttribute("data-dismiss");
+  limpiarFormularioDocumento(){
+    (<HTMLFormElement>document.getElementById("areaDeDocumento")).value = "";
+    var documento = document.getElementById('areaDeDocumento');
 
-    if(this.validarAreaDocumento()){
-      let index = this.getIndex(this.idDocumentoEditar,this.listaDocumentosSeleccionados);
-      let documentoText = (<HTMLInputElement>document.getElementById('areaDeDocumento')).value;
-      this.listaDocumentosSeleccionados[index][1] = documentoText;
+    documento.classList.remove('is-invalid');
+    documento.classList.remove('is-valid');
+  }
 
-      botoUpdate.setAttribute("data-dismiss","modal");
-    }
+  eliminarDocumento(idDocumento:string){
+    let index = this.getIndex(idDocumento,this.listaDocumentosSeleccionados);
+    this.listaDocumentosSeleccionados.splice(index,1);
   }
 
   validarAreaDocumento():boolean{
@@ -83,31 +98,6 @@ export class DocumentosAPresentarComponent implements OnInit {
 
   esTextoValido(valor:any):boolean{
     return !(valor == null || valor.length == 0 || /^\s+$/.test(valor));
-  }
-
-  limpiarFormularioDocumento(){
-    this.formularioDocumento.reset();
-    var documento = document.getElementById('areaDeDocumento');
-
-    documento.classList.remove('is-invalid');
-    documento.classList.remove('is-valid');
-  }
-
-  setIdDocumentoEditar(idDocumento:string){
-    this.idDocumentoEditar = idDocumento;
-  }
-
-  eliminarDocumento(idDocumento:string){
-    let index = this.getIndex(idDocumento,this.listaDocumentosSeleccionados);
-    this.listaDocumentosSeleccionados.splice(index,1);
-  }
-
-  desactivarBanderaAddDocumento(){
-    this.banderaAddDocumento = false;
-  }
-
-  activarBanderaAddDocumento(){
-    this.banderaAddDocumento = true;
   }
 
   getIndex(idDocumento:string,lista:string[][]):number{

@@ -31,7 +31,11 @@
                     <td>{{item[2]}}</td>
                     <td>{{item[3]}}</td>
                     <td class="d-flex flex-row justify-content-center">
-                        <button type="button" (click)="eliminarDatoDeLista(item[0])" class="btn btn-outline-danger col-sm-6 col-lg-4 m-1">
+                        <button type="button" *ngIf="i<3" (click)="eliminarDatoDeLista(item[0])" class="btn btn-outline-danger col-sm-6 col-lg-4 m-1" disabled>
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+
+                        <button type="button" *ngIf="i>=3" (click)="eliminarDatoDeLista(item[0])" class="btn btn-outline-danger col-sm-6 col-lg-4 m-1">
                             <i class="fas fa-trash-alt"></i>
                         </button>                        
                     </td>
@@ -66,13 +70,12 @@
 
                             <div class="form-check" *ngFor="let dato of listaDatosBaseDeDatos; index as i" >
                                 <input class="form-check-input" type="checkbox" value="{{dato[0]}}" id="{{dato[0]}}" (change)="setDatoLista(dato[0]) " [checked]="listaBandera[i]">
-                                <label class="form-check-label" for="{{dato[0]}}">
-                                {{dato[1]}}
-                                </label>
+                                <label  *ngIf="i<3" class="form-check-label" for="{{dato[0]}}" disabled="true"> {{dato[1]}} <span class="text-danger">*</span> </label>
+                                <label *ngIf="i>=3" class="form-check-label" for="{{dato[0]}}"> {{dato[1]}} </label>
                             </div>
                         </div>
 
-                        <div class="invalid-feedback">Seleccione al menos un dato *</div>
+                        <div class="invalid-feedback">{{mensajeError}}</div>
                     </div>
                     
                     <hr class="bg-primary">
@@ -88,8 +91,7 @@
 
             <div class="modal-footer">
                 <button type="button" id="cancelaModalDatos" class="btn btn-secondary" (click)="cancelarGuardarDatos()" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="guardarModalDatos" class="btn btn-success" (click)="guardarDatos()" >Guardar</button> 
-                
+                <button type="button" id="guardarModalDatos" class="btn btn-success" (click)="guardarDatos()" >Guardar</button>                 
             </div>
           </div>
         </div>

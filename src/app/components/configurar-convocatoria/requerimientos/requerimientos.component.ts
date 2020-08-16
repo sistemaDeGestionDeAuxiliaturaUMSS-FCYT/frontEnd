@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { FormGroup, FormControl, Validators } from '@angular/forms';//formularios , formularios reactivos, validadores de formularios
+import { FormGroup } from '@angular/forms';//formularios , formularios reactivos, validadores de formularios
 
 @Component({
   selector: 'app-requerimientos',
@@ -13,109 +12,154 @@ export class RequerimientosComponent implements OnInit {
   listaItemsDisponible:any[][] = [];
   listaItemsSeleccionados:any[][] = [];
   banderaAdd:boolean;
-  idItemEditar:string;
+  idItemEditar:number;
   
+  idItem:HTMLFormElement; 
+  itemsTitular:HTMLFormElement;
+  itemsAdHonorem:HTMLFormElement;
+  hrsAcademicas:HTMLFormElement;
+
+  opcion:string;
+
   constructor() { }
 
   ngOnInit(): void {  
-    this.formulario = new FormGroup({
-      tipoDeConvocatoria: new FormControl('', [Validators.required]), //[Validators.required, Validators.minLength(2)]
-      numeroDeItems: new FormControl('', [Validators.required]),
-      horasAcademicas: new FormControl('',[Validators.required])
-    });        
-    this.listaItemsBD = [["1","7473802","Introduccion a la programacion"],
-                         ["2","7897155","Elementos de programacion y estructura de datos"],
-                         ["3","2685656","Teoria de grafos"],
-                         ["4","7882145","Computacion"]];
+    this.formulario = new FormGroup({});        
+    this.listaItemsBD = [[1,"7473802","Introduccion a la programacion"],
+                         [2,"7897155","Elementos de programacion y estructura de datos"],
+                         [3,"2685656","Teoria de grafos"],
+                         [4,"7882145","Computacion"]];
     
     this.listaItemsDisponible = this.listaItemsBD.slice();//copy    
     this.banderaAdd = true;
-    this.idItemEditar = "-1";
+    this.idItemEditar = -1;
+
+
+    this.idItem = <HTMLFormElement>document.getElementById('idItem');
+    this.itemsTitular = <HTMLFormElement>document.getElementById('numeroDeItemsTitular');
+    this.itemsAdHonorem = <HTMLFormElement>document.getElementById('numeroDeItemsAdHonorem');
+    this.hrsAcademicas = <HTMLFormElement>document.getElementById('horasAcademicas');
+    this.opcion = "Elige un item...";
   }
 
-  activarbanderaAddItem(){
+  setAddItem():void{
     this.banderaAdd = true;
-  }
-
-  desactivarbanderaAddItem(){
-    this.banderaAdd = false;
-  }
-
-  addItem(){
-    var botonEnviar = document.getElementById("botonEnviar");
-    botonEnviar.removeAttribute("data-dismiss");
-
-    if(this.validarFormulario(true)){
-      console.log("puedo añadir a la tabla");
-
-      var idItem = (<HTMLInputElement>document.getElementById('tipoDeConvocatoria')).value;
-      var numItems = (<HTMLInputElement>document.getElementById('numeroDeItems')).value;
-      var numItemsAdHonorem = (<HTMLInputElement>document.getElementById('numeroDeItemsAdHonorem')).value;
-      var hrsAcademicas = (<HTMLInputElement>document.getElementById('horasAcademicas')).value;
-      
-      let indexItem = this.getIndexDelItem(idItem,this.listaItemsDisponible);
-      var lista:any[] = [];
-      
-      lista.push(this.listaItemsDisponible[indexItem][0]);//idItem
-      lista.push(this.listaItemsDisponible[indexItem][2]);//nombre
-      lista.push(numItems);
-      lista.push(numItemsAdHonorem);
-      lista.push(hrsAcademicas);
-      
-      console.log("indice: " + indexItem);
-
-      this.listaItemsSeleccionados.push(lista);      
-      this.listaItemsDisponible.splice(indexItem,1);//delete
-      
-      botonEnviar.setAttribute("data-dismiss","modal");
-    }else{
-      console.log("no puedo enviar");
-    }
-  }
-
-  editarItem():void{
-    console.log("editar item: " + this.idItemEditar );
-    var botonActualizar = document.getElementById("botonActualizar");    
-    botonActualizar.removeAttribute("data-dismiss");
-
-    if(this.validarFormulario(false)){
-      let index = this.getIndexDelItem(this.idItemEditar,this.listaItemsSeleccionados);
-      let numItems = (<HTMLInputElement>document.getElementById('numeroDeItems')).value;
-      let numItemsAdHonorem = (<HTMLInputElement>document.getElementById('numeroDeItemsAdHonorem')).value;
-      let hrsAcademicas = (<HTMLInputElement>document.getElementById('horasAcademicas')).value;
-
-      this.listaItemsSeleccionados[index][2] = numItems;
-      this.listaItemsSeleccionados[index][3] = numItemsAdHonorem;
-      this.listaItemsSeleccionados[index][4] = hrsAcademicas;
-
-      botonActualizar.setAttribute("data-dismiss","modal");
-    }
-  }
-
-  setIdItemEditar(idItem:string){
-    this.idItemEditar = idItem;
     this.limpiarFormulario();
-    this.desactivarListaItemsDisponibles()
-  } 
-
-  eliminarItem(idItem:string):void{
-    let index = this.getIndexDelItem(idItem,this.listaItemsSeleccionados);
-    this.listaItemsSeleccionados.splice(index,1);
-    
-    index = this.getIndexDelItem(idItem,this.listaItemsBD);
-    let lista:string[] = [];
-
-    lista.push(this.listaItemsBD[index][0]);
-    lista.push(this.listaItemsBD[index][1]);
-    lista.push(this.listaItemsBD[index][2]);
-    
-    this.listaItemsDisponible.push(lista);
+    document.getElementById("idItem").removeAttribute("disabled");
   }
 
-  getIndexDelItem(idItem:string,lista:string[][]):number{
+  setEditarItem(idItem:number):void{
+    this.idItem.options.selectedIndex = 0;
+
+    this.banderaAdd = false;
+    this.idItemEditar = idItem;
+    
+    let index = this.getIndexDelItem(this.idItemEditar,this.listaItemsSeleccionados);
+    this.opcion = this.listaItemsSeleccionados[index][2];
+    document.getElementById("idItem").setAttribute("disabled","");
+    this.itemsTitular.value = this.listaItemsSeleccionados[index][3];
+    this.itemsAdHonorem.value = this.listaItemsSeleccionados[index][4];
+    this.hrsAcademicas.value = this.listaItemsSeleccionados[index][5];
+
+    this.idItem.classList.add('is-valid');
+    this.itemsTitular.classList.add('is-valid');
+    this.itemsAdHonorem.classList.add('is-valid');
+    this.hrsAcademicas.classList.add('is-valid');
+  }
+
+  guardarItem(){
+    let botonGuardar;
+    if(this.banderaAdd){
+      botonGuardar = document.getElementById("botonAdd");
+    }else{
+      botonGuardar = document.getElementById("botonUpdate");
+    }
+    botonGuardar.removeAttribute("data-dismiss");
+
+    if(this.validarFormulario()){
+      if(this.banderaAdd){
+        let indexItem = this.getIndexDelItem(this.idItem.value,this.listaItemsDisponible);
+        var lista:any[] = [];
+        
+        lista.push(this.listaItemsDisponible[indexItem][0]);//idItem de la base de datos
+        lista.push(this.listaItemsDisponible[indexItem][1]);//idItem del item como materia
+        lista.push(this.listaItemsDisponible[indexItem][2]);//nombre
+        lista.push(this.itemsTitular.value);
+        lista.push(this.itemsAdHonorem.value);
+        lista.push(this.hrsAcademicas.value); 
+
+        this.listaItemsSeleccionados.push(lista);
+        this.listaItemsDisponible.splice(indexItem,1);
+      }else{
+        let indexItem = this.getIndexDelItem(this.idItemEditar,this.listaItemsSeleccionados);
+        this.listaItemsSeleccionados[indexItem][2] = this.itemsTitular.value;
+        this.listaItemsSeleccionados[indexItem][3] = this.itemsAdHonorem.value;
+        this.listaItemsSeleccionados[indexItem][4] = this.hrsAcademicas.value;
+      }
+      botonGuardar.setAttribute("data-dismiss","modal");
+    }
+  }
+
+  validarFormulario(){
+    return this.itemValido() && this.numItemsTitularValido() && this.numItemsAdHonoremValido() && this.hrsAcademicasValido();
+  }
+
+  itemValido():boolean{
+    let valido:boolean = false;
+    if(this.idItem.value != "itemDefault" || !this.banderaAdd){
+      this.idItem.classList.remove('is-invalid');
+      this.idItem.classList.add('is-valid');
+      valido = true;
+    }else{
+      this.idItem.classList.remove('is-valid');
+      this.idItem.classList.add('is-invalid');
+    }
+    return valido;
+  }
+
+  numItemsTitularValido():boolean{
+    let valido:boolean = false;
+    if(this.esNumeroEntero(this.itemsTitular.value)){      
+      this.itemsTitular.classList.remove('is-invalid');
+      this.itemsTitular.classList.add('is-valid');
+      valido = true;
+    }else{
+      this.itemsTitular.classList.remove('is-valid');
+      this.itemsTitular.classList.add('is-invalid');
+    }
+    return valido;
+  }
+
+  numItemsAdHonoremValido():boolean{
+    let valido:boolean = false;
+    if(this.esNumeroEntero(this.itemsAdHonorem.value)){      
+      this.itemsAdHonorem.classList.remove('is-invalid');
+      this.itemsAdHonorem.classList.add('is-valid');
+      valido = true;
+    }else{
+      this.itemsAdHonorem.classList.remove('is-valid');
+      this.itemsAdHonorem.classList.add('is-invalid');
+    }
+    return valido;
+  }
+
+  hrsAcademicasValido():boolean{
+    let valido:boolean = false;
+    if(this.esNumeroEnteroOrDecimal(this.hrsAcademicas.value)){
+      this.hrsAcademicas.classList.remove('is-invalid');
+      this.hrsAcademicas.classList.add('is-valid');
+      valido = true;
+    }else{
+      this.hrsAcademicas.classList.remove('is-valid');
+      this.hrsAcademicas.classList.add('is-invalid');
+    }
+    return valido;
+  }
+
+  getIndexDelItem(idItem:number,lista:any[][]):number{
     let index = -1;
     for (let i = 0; i < lista.length; i++) {
-      if(lista[i][0] === idItem){
+      if(lista[i][0] == idItem){
         index = i;
         break;
       }
@@ -123,145 +167,38 @@ export class RequerimientosComponent implements OnInit {
     return index;
   }
 
-  limpiarFormulario():void{
-    this.formulario.reset();    
+  limpiarFormulario():void{ 
+    this.idItem.classList.remove('is-invalid');
+    this.itemsTitular.classList.remove('is-invalid');
+    this.itemsAdHonorem.classList.remove('is-invalid');
+    this.hrsAcademicas.classList.remove('is-invalid');
+
+    this.idItem.classList.remove('is-valid');
+    this.itemsTitular.classList.remove('is-valid');
+    this.itemsAdHonorem.classList.remove('is-valid');
+    this.hrsAcademicas.classList.remove('is-valid');
+
+    this.opcion = "Elige un item...";
+    this.itemsTitular.value = "";
+    this.itemsAdHonorem.value = "";
+    this.hrsAcademicas.value = "";
+
+    this.idItem.options.selectedIndex = 0;
+
+  }
+
+  eliminarItem(idItem:number):void{
+    let index = this.getIndexDelItem(idItem,this.listaItemsSeleccionados);
+    this.listaItemsSeleccionados.splice(index,1);
     
-    var inputItem = document.getElementById('tipoDeConvocatoria');
-    var inputNumItems = document.getElementById('numeroDeItems');
-    var inputNumItemsAdHonorem = document.getElementById('numeroDeItemsAdHonorem');
-    var inputHrsAcademicas = document.getElementById('horasAcademicas');
+    index = this.getIndexDelItem(idItem,this.listaItemsBD);
 
-    inputItem.classList.remove('is-invalid');
-    inputNumItems.classList.remove('is-invalid');
-    inputNumItemsAdHonorem.classList.remove('is-invalid');
-    inputHrsAcademicas.classList.remove('is-invalid');
-
-    inputItem.classList.remove('is-valid');
-    inputNumItems.classList.remove('is-valid');
-    inputNumItemsAdHonorem.classList.remove('is-valid');
-    inputHrsAcademicas.classList.remove('is-valid');
-  }
-
-  validarSeleccionItem():void{
-    var inputItem = document.getElementById('tipoDeConvocatoria');
-    var item = (<HTMLInputElement>inputItem).value;
-    if(item !== ""){
-      inputItem.classList.remove('is-invalid');
-      inputItem.classList.add('is-valid');
-    }else{
-      inputItem.classList.remove('is-valid');
-      inputItem.classList.add('is-invalid');
-    }
-  }
-
-  validarNumeroDeItemsTitular():void{    
-    var inputNumItems = document.getElementById('numeroDeItems');    
-    var numItems = (<HTMLInputElement>inputNumItems).value;
-
-    if(this.esNumeroEntero(numItems)){      
-      inputNumItems.classList.remove('is-invalid');
-      inputNumItems.classList.add('is-valid');
-    }else{
-      inputNumItems.classList.remove('is-valid');
-      inputNumItems.classList.add('is-invalid');
-    }
-  }
-
-  validarNumeroDeItemsAdHonorem():void{    
-    var inputNumItems = document.getElementById('numeroDeItemsAdHonorem');    
-    var numItems = (<HTMLInputElement>inputNumItems).value;
-
-    if(this.esNumeroEntero(numItems)){      
-      inputNumItems.classList.remove('is-invalid');
-      inputNumItems.classList.add('is-valid');
-    }else{
-      inputNumItems.classList.remove('is-valid');
-      inputNumItems.classList.add('is-invalid');
-    }
-  }
-
-  validarHorasAcademicas():void{
-    var inputHrsAcademicas = document.getElementById('horasAcademicas');
-    var hrsAcademicas = (<HTMLInputElement>inputHrsAcademicas).value;
-    if(this.esNumeroEnteroOrDecimal(hrsAcademicas)){
-      inputHrsAcademicas.classList.remove('is-invalid');
-      inputHrsAcademicas.classList.add('is-valid');
-    }else{
-      inputHrsAcademicas.classList.remove('is-valid');
-      inputHrsAcademicas.classList.add('is-invalid');
-    }
-  }
-
-  validarFormulario(todosLosCampos:boolean):boolean{    
-    var valido:boolean = false;
-
-    var inputItem = document.getElementById('tipoDeConvocatoria');
-    var inputNumItems = document.getElementById('numeroDeItems');
-    var inputNumItemsAdHonorem = document.getElementById('numeroDeItemsAdHonorem');
-    var inputHrsAcademicas = document.getElementById('horasAcademicas');
-    var item = (<HTMLInputElement>inputItem).value;
-    var numItems = (<HTMLInputElement>inputNumItems).value;
-    var numItemsAdHonorem = (<HTMLInputElement>inputNumItemsAdHonorem).value;
-    var hrsAcademicas = (<HTMLInputElement>inputHrsAcademicas).value;
+    let lista:string[] = [];
+    lista.push(this.listaItemsBD[index][0]);
+    lista.push(this.listaItemsBD[index][1]);
+    lista.push(this.listaItemsBD[index][2]);
     
-    
-    
-    if(this.esNumeroEntero(numItems) && this.esNumeroEntero(numItemsAdHonorem) && this.esNumeroEnteroOrDecimal(hrsAcademicas)){      
-        //inputItem.classList.remove('is-invalid');
-        inputNumItems.classList.remove('is-invalid');
-        inputNumItemsAdHonorem.classList.remove('is-invalid');
-        inputHrsAcademicas.classList.remove('is-invalid');
-
-        //inputItem.classList.add('is-valid');
-        inputNumItems.classList.add('is-valid');
-        inputNumItemsAdHonorem.classList.remove('is-valid');
-        inputHrsAcademicas.classList.add('is-valid');
-
-        valido = true;
-        if(todosLosCampos){
-          if(item !== ""){
-            inputItem.classList.remove('is-invalid');
-            inputItem.classList.add('is-valid');
-          }else{
-            valido = false;
-          }
-        }        
-    }else{
-      if(!this.esNumeroEntero(numItems)){
-        inputNumItems.classList.remove('is-valid');
-        inputNumItems.classList.add('is-invalid');
-      }else{
-        inputNumItems.classList.remove('is-invalid');
-        inputNumItems.classList.add('is-valid')
-      }
-
-      if(!this.esNumeroEntero(numItemsAdHonorem)){
-        inputNumItemsAdHonorem.classList.remove('is-valid');
-        inputNumItemsAdHonorem.classList.add('is-invalid');
-      }else{
-        inputNumItemsAdHonorem.classList.remove('is-invalid');
-        inputNumItemsAdHonorem.classList.add('is-valid')
-      }
-
-      if(!this.esNumeroEnteroOrDecimal(hrsAcademicas)){
-        inputHrsAcademicas.classList.remove('is-valid');
-        inputHrsAcademicas.classList.add('is-invalid');
-      }else{
-        inputHrsAcademicas.classList.remove('is-invalid');
-        inputHrsAcademicas.classList.add('is-valid');
-      }
-
-      if(todosLosCampos){
-        if(item===""){
-          inputItem.classList.remove('is-valid');
-          inputItem.classList.add('is-invalid');
-        }else{
-          inputItem.classList.remove('is-invalid');
-          inputItem.classList.add('is-valid');
-        }
-      }
-    }  
-    return valido;
+    this.listaItemsDisponible.push(lista);
   }
 
   textoVacio(valor:any):boolean{
@@ -290,15 +227,5 @@ export class RequerimientosComponent implements OnInit {
       }
     }
     return esNumero;
-  }
-
-  activarListaItemsDisponibles(){
-    const nombreItem = document.getElementById("nombreItem");
-    nombreItem.removeAttribute("disabled");
-  }
-
-  desactivarListaItemsDisponibles(){
-    const nombreItem = document.getElementById("nombreItem");
-    nombreItem.setAttribute("disabled","");
   }
 }

@@ -3,7 +3,7 @@
             3.- Documentos a presentar :
         </h3>
 
-        <button type="button" class="btn btn-outline-success ml-auto" (click)="limpiarFormularioDocumento(); activarBanderaAddDocumento()" data-toggle="modal" data-target="#addDocumentosModal">
+        <button type="button" class="btn btn-outline-success ml-auto" (click)="setAniadirDocumento()" data-toggle="modal" data-target="#addDocumentosModal">
             <i class="fas fa-plus mr-2"></i>
             Añadir
         </button>      
@@ -25,7 +25,7 @@
                         <th >{{i+1}} </th>
                         <td align="left">{{documento[1]}} </td>
                         <td class="d-flex flex-row justify-content-center">                                
-                            <button type="button" class="btn btn-outline-primary col-sm-6 col-lg-4 m-1"   (click)="limpiarFormularioDocumento(); desactivarBanderaAddDocumento(); setIdDocumentoEditar(documento[0]) " data-toggle="modal" data-target="#addDocumentosModal">
+                            <button type="button" class="btn btn-outline-primary col-sm-6 col-lg-4 m-1"   (click)="setEditarDocumento(documento[0]) " data-toggle="modal" data-target="#addDocumentosModal">
                                 <i class="fas fa-edit"></i>
                             </button>
                             <button type="button" class="btn btn-outline-danger col-sm-6 col-lg-4 m-1"  (click)="eliminarDocumento(documento[0])">
@@ -54,7 +54,7 @@
                 <form [formGroup]="formularioDocumento" id="formulario">                                            
                     <div class="form-group">
                         <label for="areaDeDocumento">Descripción del documento</label>
-                        <textarea class="form-control" id="areaDeDocumento" rows="5" (keyup)="validarAreaDocumento()" formControlName="areaDocumento"></textarea>
+                        <textarea class="form-control" id="areaDeDocumento" rows="5" (keyup)="validarAreaDocumento()" (keyup.enter)="guardarDocumento()"></textarea>
                         <div class="invalid-feedback">La descripción no puede estar vacia * </div>
                     </div>
                 </form>
@@ -62,8 +62,8 @@
         
             <div class="modal-footer">
                 <button type="button" id="botonCancelDocumento" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="botonAddDocumento" class="btn btn-success" (click)="addDocumento()" *ngIf="banderaAddDocumento">Añadir</button>
-                <button type="button" id="botonUpdateDocumento" class="btn btn-primary" (click)="editarDocumento()" *ngIf="!banderaAddDocumento" >Modificar</button>
+                <button type="button" id="botonAddDocumento" class="btn btn-success" (click)="guardarDocumento()" *ngIf="banderaAddDocumento">Añadir</button>
+                <button type="button" id="botonUpdateDocumento" class="btn btn-primary" (click)="guardarDocumento()" *ngIf="!banderaAddDocumento" >Modificar</button>
             </div>
           </div>
         </div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SerConfConvocatoriaService } from './../servicios/ser-conf-convocatoria.service';
+
 @Component({
   selector: 'app-configurar-convocatoria',
   templateUrl: './configurar-convocatoria.component.html',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigurarConvocatoriaComponent implements OnInit {
 
-  constructor() { }
+  constructor(public serConfConvocatoria:SerConfConvocatoriaService) { }
 
   ngOnInit(): void {
   }

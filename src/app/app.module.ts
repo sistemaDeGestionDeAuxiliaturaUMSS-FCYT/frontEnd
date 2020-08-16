@@ -37,6 +37,7 @@ import {MatListModule} from '@angular/material/list';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RotuloItemConvocatoriaComponent } from './components/configurar-convocatoria/rotulo-item-convocatoria/rotulo-item-convocatoria.component';
 
 
 
@@ -71,7 +72,8 @@ const routes: Routes = [
     EventosComponent,
     DatosRotuloComponent,
     ModificarDatoRotuloComponent,
-    AniadirDatoRotuloComponent
+    AniadirDatoRotuloComponent,
+    RotuloItemConvocatoriaComponent
   ],
   imports: [
     BrowserModule,

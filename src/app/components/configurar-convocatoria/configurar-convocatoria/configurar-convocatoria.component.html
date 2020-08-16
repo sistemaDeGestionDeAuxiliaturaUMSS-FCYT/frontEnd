@@ -1,20 +1,33 @@
 <div class="px-5">
-<div>
-    <h2 class="text-center pt-2">
-        Convocatoria para auxiliares de docencia
-    </h2>
-</div>
+    <div>
+        <h2 class="text-center pt-2 pb-0 m-0">
+            Convocatoria para auxiliares de docencia ...
+        </h2>
 
-<app-requerimientos></app-requerimientos>
+        <h3 class="text-right p-0 m-0 mb-1 text-danger font-weight-bold" *ngIf="serConfConvocatoria.porcentajeNetoConvocatoria < 100">
+            Porcentaje total: {{serConfConvocatoria.porcentajeNetoConvocatoria}} %
+        </h3>
 
-<app-requisitos></app-requisitos>
-    
-<app-documentos-a-presentar></app-documentos-a-presentar>
-    
-<app-datos-rotulo></app-datos-rotulo>
+        <h3 class="text-right p-0 m-0 mb-1 text-success font-weight-bold" *ngIf="serConfConvocatoria.porcentajeNetoConvocatoria == 100">
+            Porcentaje total: {{serConfConvocatoria.porcentajeNetoConvocatoria}} %
+        </h3>
+    </div>
 
-<app-calificacion-de-meritos></app-calificacion-de-meritos>
+    <app-requerimientos></app-requerimientos>
 
+    <app-requisitos></app-requisitos>
+            
+    <app-documentos-a-presentar></app-documentos-a-presentar>
+
+    <app-datos-rotulo></app-datos-rotulo>
+
+    <app-calificacion-de-meritos></app-calificacion-de-meritos>
+
+    <app-calificacion-de-conocimientos></app-calificacion-de-conocimientos>
+
+    <app-eventos></app-eventos>
+
+    <app-rotulo-item-convocatoria></app-rotulo-item-convocatoria>
 </div>
 
 
