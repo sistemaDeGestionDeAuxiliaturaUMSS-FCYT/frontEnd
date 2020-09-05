@@ -48,6 +48,7 @@ export class CalificacionDeConocimientosComponent implements OnInit {
     this.porcentajeNetoConocimiento = 0;
     this.banderaAniadir = true;
 
+    /*
     this.listaItemsBD = [
       [1,"LCO – ADM","Administrador de Laboratorio de Cómputo"],
       [2,"LDS – ADM","Administrador de Laboratorio de Desarrollo"],
@@ -57,8 +58,13 @@ export class CalificacionDeConocimientosComponent implements OnInit {
       [6,"LM – ADM – HW","Administrador de Laboratorio de Mantenimiento de Hardware"],
       [7,"LM – AUX – HW","Auxiliar de Laboratorio de Mantenimiento de Hardware"],
       [8,"LDS – ATL","Auxiliar de Terminal de Laboratorio de Cómputo"]
-    ];
-
+    ]; 
+    */
+    
+    this.listaItemsBD = this.serConfConvocatoria.getItemsBD(); //servicio
+    this.listaItemsDisponible = this.serConfConvocatoria.getListaItemsDisponibles();  //servicio
+    this.listaItemTematica = this.serConfConvocatoria.getListaItemsTematicaTablaConocimiento(); //servicio
+    
     this.listaTematicasBD = [
       [9,"ADM LINUX"],
       [10,"REDES NIVEL INTERMEDIO"],
@@ -77,12 +83,14 @@ export class CalificacionDeConocimientosComponent implements OnInit {
       [14,"Practico"]
     ];
 
-    this.listaItemsDisponible = this.listaItemsBD.slice();
+    //this.listaItemsDisponible = this.listaItemsBD.slice();
+
     this.llenarTematicas();
     this.opcion = "Elige un ítem...";
     this.idItem = (<HTMLFormElement>document.getElementById('idItemConocimiento'));
     this.itemValidoConocimiento = false;
-    this.indexItemTabla = 1;
+    //this.indexItemTabla = 1;
+    this.indexItemTabla = this.serConfConvocatoria.getIndexItemTabla();
 
     
   }
@@ -114,7 +122,7 @@ export class CalificacionDeConocimientosComponent implements OnInit {
   }
   
   setPorcentajeTipoEvaluacion(idTipoEvaluacion:number,idTematica:number){
-    console.log("ddd");
+    //console.log("ddd");
     let porcentaje = <HTMLFormElement>document.getElementById("porcentajeTipoEvaluacion"+idTipoEvaluacion);
     let indexTematica = this.getIndex(idTematica,this.listaTematicasDisponible);
 
@@ -395,7 +403,7 @@ export class CalificacionDeConocimientosComponent implements OnInit {
   }
 
   aniadirItemATabla():void{
-    console.log("guardar");
+    //console.log("guardar");
     let botonGuardar:HTMLFormElement;
     if(this.banderaAniadir){
       botonGuardar = <HTMLFormElement>document.getElementById("botonAddConocimiento");
@@ -406,13 +414,14 @@ export class CalificacionDeConocimientosComponent implements OnInit {
     botonGuardar.removeAttribute("data-dismiss");
 
     if(this.modalConocimientoValido()){
-      console.log("modal valido");
+      //console.log("modal valido");
       if(this.banderaAniadir){//aniadir
         let indexItem:number = this.getIndex(Number(this.idItem.value),this.listaItemsDisponible);
         
         let item:any[] = [
           true, // 0, para saber si es un item o una tematica (item)
-          this.indexItemTabla, //1, indice del item para la tabla en la interfaz
+          //this.indexItemTabla, //1, indice del item para la tabla en la interfaz
+          this.serConfConvocatoria.getIndexItemTabla(),
           this.listaItemsDisponible[indexItem][0], // 2, iditem bd
           this.listaItemsDisponible[indexItem][1], // 3, codigo propio del item
           this.listaItemsDisponible[indexItem][2], // 4, nombre del item
@@ -420,8 +429,12 @@ export class CalificacionDeConocimientosComponent implements OnInit {
         ];
         
         this.listaItemTematica.push(item);
-        this.indexItemTabla = this.indexItemTabla + 1;
+        //this.indexItemTabla = this.indexItemTabla +  1;
+
+        this.serConfConvocatoria.setIndexItemTabla(this.serConfConvocatoria.getIndexItemTabla()+1);
+        this.indexItemTabla = this.serConfConvocatoria.getIndexItemTabla();
         
+
         for (let i = 0; i < this.listaTematicasDisponible.length; i++) { //recorrer las tematicas
           let checkTematica:HTMLFormElement = <HTMLFormElement>document.getElementById("checkTematica"+this.listaTematicasDisponible[i][0]);
           if(checkTematica.checked){  
@@ -447,6 +460,7 @@ export class CalificacionDeConocimientosComponent implements OnInit {
           }
         }
         this.listaItemsDisponible.splice(indexItem,1);
+
       }else{ // update
         //console.log("-------------- actualizar ------------------");
         let indexItem:number = this.getIndexEditar();
@@ -466,15 +480,7 @@ export class CalificacionDeConocimientosComponent implements OnInit {
           console.log("si 1");*/
         }
 
-        /*
-        for (let i = indexItem; i < this.listaItemTematica.length; i++) {
-          if(this.listaItemTematica[i][0]==false){
-            this.listaItemTematica.splice(i,1);
-          }else{
-            break;
-          }              
-        }
-        */
+        
 
         //console.log(this.listaItemTematica.slice());
         //console.log("---------------------------------");
@@ -491,11 +497,11 @@ export class CalificacionDeConocimientosComponent implements OnInit {
               this.listaTematicasDisponible[i][2], //4, porcentaje asignado a la tematica barra dezplazadora
               this.listaTematicasDisponible[i][3]  //5, porcentaje de los tipos de evaluacion
             ];
-            console.log(tematica.slice());
+            //console.log(tematica.slice());
             //this.listaItemTematica.push(tematica);      
             this.listaItemTematica.splice(indexItem,0,tematica);
             indexItem = indexItem+1;
-            console.log(this.listaItemTematica.slice());
+            //console.log(this.listaItemTematica.slice());
 
             let evaluacion:any[][] = []; 
             for (let j = 0; j < this.listaTiposDeEvaluacion.length; j++) {
@@ -511,7 +517,7 @@ export class CalificacionDeConocimientosComponent implements OnInit {
       }
       botonGuardar.setAttribute("data-dismiss","modal");
     }else{
-      console.log("modal no valido");
+      //console.log("modal no valido");
     }
   } 
   
@@ -580,6 +586,7 @@ export class CalificacionDeConocimientosComponent implements OnInit {
 
   eliminarItemDeTabla(idItem:number):void{
     let index:number = this.getIndex(idItem,this.listaItemsBD);
+    
     this.listaItemsDisponible.push(this.listaItemsBD[index]);
     
     let indexAux:number = 1;
@@ -599,7 +606,10 @@ export class CalificacionDeConocimientosComponent implements OnInit {
       }
     }
 
-    this.indexItemTabla = indexAux;
+    //this.indexItemTabla = indexAux;
+    this.serConfConvocatoria.setIndexItemTabla(indexAux); //actualizamos el index del servicio
+    this.indexItemTabla = this.serConfConvocatoria.getIndexItemTabla();
+
     this.listaItemTematica.splice(0);
     this.listaItemTematica = listaItemTematicaAux.slice();
   }
@@ -627,10 +637,10 @@ export class CalificacionDeConocimientosComponent implements OnInit {
         for (let i = 0; i < this.listaTematicasDisponible.length; i++) {
           let checkTematica:HTMLFormElement = <HTMLFormElement>document.getElementById("checkTematica"+this.listaTematicasDisponible[i][0]);
           if(checkTematica.checked){
-            console.log("checkTematica ok : " + this.listaTematicasDisponible[i][0] );
-            console.log(this.listaTematicasDisponible[i]);
+            //console.log("checkTematica ok : " + this.listaTematicasDisponible[i][0] );
+            //console.log(this.listaTematicasDisponible[i]);
             if(Number(this.listaTematicasDisponible[i][2]) > 0 && this.listaTematicasDisponible[i][3] == 100){ //porcentaje de la barra desplazadora de una tematica && porcentaje de la suma de los tiposd e evaluacion para una temativa
-              console.log("porcentaje tematica :" + this.listaTematicasDisponible[i][3] );
+              //console.log("porcentaje tematica :" + this.listaTematicasDisponible[i][3] );
               
               for (let j = 0; j < this.listaTiposDeEvaluacion.length; j++) {
                 if(this.listaTematicasDisponible[i][0] == this.listaTiposDeEvaluacion[j][1]){
@@ -639,7 +649,7 @@ export class CalificacionDeConocimientosComponent implements OnInit {
                         
                     }else{
                       valido = false;
-                      console.log("failll");
+                      //console.log("failll");
                       document.getElementById("porcentajeTipoEvaluacion"+this.listaTiposDeEvaluacion[j][0]).classList.add("is-invalid");
                     }
                   }
@@ -653,11 +663,11 @@ export class CalificacionDeConocimientosComponent implements OnInit {
         }
       }else{
         valido = false;
-        console.log("fail porcentaje : " + this.porcentajeTotal)
+        //console.log("fail porcentaje : " + this.porcentajeTotal)
       }
     }else{
       valido = false;
-      console.log("fail item");
+      //console.log("fail item");
     }
     return valido
   }

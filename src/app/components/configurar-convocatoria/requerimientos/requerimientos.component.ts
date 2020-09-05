@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';//formularios , formularios reactivos, validadores de formularios
 
+import { SerConfConvocatoriaService } from './../servicios/ser-conf-convocatoria.service';
+
 @Component({
   selector: 'app-requerimientos',
   templateUrl: './requerimientos.component.html',
   styleUrls: ['./requerimientos.component.css']
 })
+
 export class RequerimientosComponent implements OnInit {
   formulario: FormGroup;
   listaItemsBD: any[][] = [];
@@ -21,7 +24,7 @@ export class RequerimientosComponent implements OnInit {
 
   opcion:string;
 
-  constructor() { }
+  constructor(private serConfConvocatoria:SerConfConvocatoriaService) { }
 
   ngOnInit(): void {  
     this.formulario = new FormGroup({});        
@@ -30,7 +33,8 @@ export class RequerimientosComponent implements OnInit {
                          [3,"2685656","Teoria de grafos"],
                          [4,"7882145","Computacion"]];
     
-    this.listaItemsDisponible = this.listaItemsBD.slice();//copy    
+    this.listaItemsDisponible = this.listaItemsBD.slice();//copy  
+    this.listaItemsSeleccionados = this.serConfConvocatoria.getItemsBD(); // servicio
     this.banderaAdd = true;
     this.idItemEditar = -1;
 
@@ -86,10 +90,12 @@ export class RequerimientosComponent implements OnInit {
         lista.push(this.listaItemsDisponible[indexItem][2]);//nombre
         lista.push(this.itemsTitular.value);
         lista.push(this.itemsAdHonorem.value);
-        lista.push(this.hrsAcademicas.value); 
+        lista.push(this.hrsAcademicas.value);
 
-        this.listaItemsSeleccionados.push(lista);
+        this.listaItemsSeleccionados.push(lista); //ref service BD -> lista items BD
         this.listaItemsDisponible.splice(indexItem,1);
+
+        this.serConfConvocatoria.addItemToItemsDisponibles(lista.slice()); //ref servicio BD -> lista items disponibles
       }else{
         let indexItem = this.getIndexDelItem(this.idItemEditar,this.listaItemsSeleccionados);
         this.listaItemsSeleccionados[indexItem][2] = this.itemsTitular.value;
@@ -167,6 +173,17 @@ export class RequerimientosComponent implements OnInit {
     return index;
   }
 
+  getIndexDelItemEnPosicionX(idItem:number,lista:any[][],pos:number):number{
+    let index = -1;
+    for (let i = 0; i < lista.length; i++) {
+      if(lista[i][pos] == idItem){
+        index = i;
+        break;
+      }
+    }
+    return index;
+  }
+
   limpiarFormulario():void{ 
     this.idItem.classList.remove('is-invalid');
     this.itemsTitular.classList.remove('is-invalid');
@@ -188,10 +205,37 @@ export class RequerimientosComponent implements OnInit {
   }
 
   eliminarItem(idItem:number):void{
-    let index = this.getIndexDelItem(idItem,this.listaItemsSeleccionados);
-    this.listaItemsSeleccionados.splice(index,1);
-    
-    index = this.getIndexDelItem(idItem,this.listaItemsBD);
+    let indexItemSeleccionado:number = this.getIndexDelItem(idItem,this.listaItemsSeleccionados);
+    this.listaItemsSeleccionados.splice(indexItemSeleccionado,1);
+
+    console.log(this.serConfConvocatoria.getListaItemsDisponibles().slice());
+    console.log(this.serConfConvocatoria.getListaItemsTematicaTablaConocimiento().slice());
+    /**
+     * eliminar un item de listaItemsDisponibles o listaItemTematica
+     */
+    let indexItemDisponible:number = this.getIndexDelItem(idItem,this.serConfConvocatoria.getListaItemsDisponibles());
+    if(indexItemDisponible!=-1){
+      this.serConfConvocatoria.removeItemFromListaItemsDisponibles(indexItemDisponible);
+      console.log("delete from listaItemsDisponibles");
+    }else{
+      console.log("Error: delete from listaItemsDisponibles");      
+    }
+
+    let indexItemTematica:number = this.getIndexDelItemEnPosicionX(idItem,this.serConfConvocatoria.getListaItemsTematicaTablaConocimiento(),2);
+    if(indexItemTematica!=-1){
+      console.log("index item ---> " + indexItemTematica);
+      this.serConfConvocatoria.removeItemFromListaItemTematica(this.serConfConvocatoria.getListaItemsTematicaTablaConocimiento()[indexItemTematica][2]);
+      console.log("delete from listaItemsTematica");
+    }else{
+      console.log("Error: delete from listaItemsTematica");      
+    }
+
+    console.log("---------------------------------");
+     
+    /**
+     * el item que fue eliminado de la tabla, añadir nuevamente a itlems diponibles
+     */
+    let index:number = this.getIndexDelItem(idItem,this.listaItemsBD);
 
     let lista:string[] = [];
     lista.push(this.listaItemsBD[index][0]);
