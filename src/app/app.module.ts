@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 
-
-
 import { RouterModule,Routes } from '@angular/router';//rutas dinamnicas
 import { ReactiveFormsModule } from '@angular/forms'; //formularios reactivos
 import { HttpClientModule } from '@angular/common/http'; //para llamar al backend mediante http : signin servicev
@@ -29,7 +27,8 @@ import { EventosComponent } from './components/configurar-convocatoria/eventos/e
 import { DatosRotuloComponent } from './components/configurar-convocatoria/datos-rotulo/datos-rotulo.component';
 import { ModificarDatoRotuloComponent } from './components/configurar-convocatoria/modificar-dato-rotulo/modificar-dato-rotulo.component';
 import { AniadirDatoRotuloComponent } from './components/configurar-convocatoria/aniadir-dato-rotulo/aniadir-dato-rotulo.component';
-
+import { PostularConvocatoriaComponent } from './components/postular-convocatoria/postular-convocatoria.component';
+import { PostularAItemComponent } from './components/postular-a-item/postular-a-item.component';
 
 //utilitarios
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -42,6 +41,7 @@ import { RotuloItemConvocatoriaComponent } from './components/configurar-convoca
 
 
 
+
 const routes: Routes = [
   { path: 'inicio', component: InicioComponent}, //InicioComponent
   { path: 'login', component: LoginComponent},
@@ -49,6 +49,8 @@ const routes: Routes = [
   { path: 'configurarConvocatoria', component: ConfigurarConvocatoriaComponent},
   { path: 'crearConvocatoria', component: CrearConvocatoriaComponent},
   { path: 'consultarConvocatoria', component: ConsultarConvocatoriaComponent},
+  { path: 'postularAConvocatoria', component: PostularConvocatoriaComponent},
+  { path: 'postularAItem', component: PostularAItemComponent},
   { path: '', component: InicioComponent, pathMatch:'full'},
   { path: '**', redirectTo: '/inicio', pathMatch: 'full' }
 ];
@@ -73,7 +75,9 @@ const routes: Routes = [
     DatosRotuloComponent,
     ModificarDatoRotuloComponent,
     AniadirDatoRotuloComponent,
-    RotuloItemConvocatoriaComponent
+    RotuloItemConvocatoriaComponent,
+    PostularConvocatoriaComponent,
+    PostularAItemComponent
   ],
   imports: [
     BrowserModule,

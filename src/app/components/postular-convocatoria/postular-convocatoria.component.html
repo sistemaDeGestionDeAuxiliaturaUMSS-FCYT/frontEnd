@@ -1,0 +1,67 @@
+<div class="container">
+  <h3 class="d-flex justify-content-center mt-3 mb-1">
+    Convovatorias disponibles
+  </h3>
+
+  <form [formGroup]="formularioPostularConvocatoria" id="formulario" class="d-flex justify-content-end">
+    <div class="form-group col-sm-12 col-md-3 m-0 p-0" >                                                                                  
+        <select class="custom-select custom-select-sm" id=""> <!--(change)="validarSeleccionItem()"     -    disabled--> 
+          <option selected>Departamento...</option>
+          <option value="1">Dpto. Informatica y Sistemas</option>
+          <option value="2">Dpto. Matematicas</option>
+          <option value="3">Dpto. Industrial</option>
+        </select>                    
+        <div class="invalid-feedback">Elija un item * </div>
+    </div>
+  </form>
+
+  
+  
+  
+  <hr color="black" class="my-2"/>
+
+
+  <div class="card mb-4">
+    <div class="card-header">
+        <div class="row m-0">
+            <div class="p-0 col-sm-12 col-md-9 my-auto">
+              Convocatoria para auxiliares de Docencia gestion I-2020
+            </div>
+
+            <div class="p-0 col-sm-12 col-md-3 d-flex justify-content-end">
+              <i style="cursor:pointer" href="#" class="far fa-2x fa-file-pdf my-auto mx-2"></i>
+              <a href="#" class="btn btn-primary btn-sm px-2 py-1">Postular</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body py-1">
+      <p class="card-text my-1">Tipo de convocatoria: Docencia </p>
+      <p class="card-text my-1">Gestion : 2020 </p>
+      <p class="card-text my-1">Fecha inicio : 02/08/2020 </p>
+      <p class="card-text my-1">Fecha fin : 05/09/2020 </p>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header">
+        <div class="row m-0">
+            <div class="p-0 col-sm-12 col-md-9 my-auto">
+              Convocatoria para auxiliares de Docencia gestion I-2020
+            </div>
+
+            <div class="p-0 col-sm-12 col-md-3 d-flex justify-content-end">
+              <i style="cursor:pointer" href="#" class="far fa-2x fa-file-pdf my-auto mx-2"></i>
+              <a href="#" type="button" class="btn btn-primary btn-sm px-2 py-1">Postular</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body py-1">
+      <p class="card-text my-1">Tipo de convocatoria: Docencia </p>
+      <p class="card-text my-1">Gestion : 2020 </p>
+      <p class="card-text my-1">Fecha inicio : 02/08/2020 </p>
+      <p class="card-text my-1">Fecha fin : 05/09/2020 </p>
+    </div>
+  </div>
+</div>

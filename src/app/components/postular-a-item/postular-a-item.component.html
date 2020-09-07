@@ -1,0 +1,105 @@
+<div class="container d-flex flex-column" style="height: 100%;">
+    <h3 class="d-flex justify-content-center mt-3 mb-1">
+        Itemes disponibles
+    </h3>
+
+    <hr color="black" class="mt-0 mb-3 mx-0 py-0"/>
+
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <div class="row m-0">
+                <div class="p-0 col-sm-12 col-md-9 my-auto">
+                  Introduccion a la programacion
+                </div>
+    
+                <div class="p-0 col-sm-12 col-md-3 d-flex justify-content-end">
+                    <input type="checkbox" style="width: 1.7em; height: 1.7em;" class="form-check-input my-auto" id="checkItem">
+                </div>
+            </div>
+        </div>
+    
+        <div class="card-body py-1">
+          <p class="card-text my-1">- Itemes titular: 8 </p>
+          <p class="card-text my-1">- Itemes ad honorem : 2 </p>
+          <p class="card-text my-1">- Hrs/mes : 20 </p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <div class="row m-0">
+                <div class="p-0 col-sm-12 col-md-9 my-auto">
+                  elementos de programacion
+                </div>
+    
+                <div class="p-0 col-sm-12 col-md-3 d-flex justify-content-end">
+                    <input type="checkbox" style="width: 1.7em; height: 1.7em;" class="form-check-input my-auto" id="checkItem">
+                </div>
+            </div>
+        </div>
+    
+        <div class="card-body py-1">
+          <p class="card-text my-1">- Itemes titular: 8 </p>
+          <p class="card-text my-1">- Itemes ad honorem : 2 </p>
+          <p class="card-text my-1">- Hrs/mes : 20 </p>
+        </div>
+    </div>
+
+    <!-- ---------------------------------------------------------- -->
+    <h3 class="d-flex justify-content-center mb-1">
+        Datos personales para el rotulo
+    </h3>
+
+    <hr color="black" class="mt-0 mb-3 mx-0 py-0"/>
+
+    <div class="mb-3">
+        <form [formGroup]="formularioPostularItem">
+            <div class="row">
+                <div class="form-group col-sm-12 col-md-4">
+                    <label for="">Nombres</label>
+                    <input type="text" class="form-control form-control-sm text-capitalize" id="" placeholder="Nombres">
+                </div>    
+
+                <div class="form-group col-sm-12 col-md-4">
+                    <label for="">Apellido paterno</label>
+                    <input type="text" class="form-control form-control-sm text-capitalize" id="" placeholder="Apellido Paterno">
+                </div>
+
+                <div class="form-group col-sm-12 col-md-4" >
+                    <label for="">Apellido materno</label>
+                    <input type="text" class="form-control form-control-sm text-capitalize" id="" placeholder="Apellido Materno">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label for="">Código SIS</label>
+                    <input type="text" class="form-control form-control-sm text-capitalize" id="" placeholder="Código SIS">
+                </div>  
+            </div>
+        </form>
+    </div>
+
+    
+
+    <div class="mt-auto mb-2">
+        <hr color="black" class="mt-0 mb-3 mx-0 py-0"/>
+        
+        
+
+        <p class="d-flex justify-content-end my-auto">
+            <button type="button" class="btn btn-outline-danger btn-sm px-2 py-1 mx-1">
+                <i class="fa-lg far fa-window-close"></i>
+                Cancelar
+            </button>
+
+            <button type="button" class="btn btn-outline-primary btn-sm px-2 py-1">
+                <i class="fa-lg fas fa-forward"></i>
+                Siguiente
+            </button>
+        </p>
+
+        
+    </div>
+</div>
