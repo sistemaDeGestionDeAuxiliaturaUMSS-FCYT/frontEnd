@@ -29,6 +29,7 @@ import { ModificarDatoRotuloComponent } from './components/configurar-convocator
 import { AniadirDatoRotuloComponent } from './components/configurar-convocatoria/aniadir-dato-rotulo/aniadir-dato-rotulo.component';
 import { PostularConvocatoriaComponent } from './components/postular-convocatoria/postular-convocatoria.component';
 import { PostularAItemComponent } from './components/postular-a-item/postular-a-item.component';
+import { CurriculoVitaeComponent } from './components/curriculo-vitae/curriculo-vitae.component';
 
 //utilitarios
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -50,7 +51,8 @@ const routes: Routes = [
   { path: 'crearConvocatoria', component: CrearConvocatoriaComponent},
   { path: 'consultarConvocatoria', component: ConsultarConvocatoriaComponent},
   { path: 'postularAConvocatoria', component: PostularConvocatoriaComponent},
-  { path: 'postularAItem', component: PostularAItemComponent},
+  { path: 'postularAItem', component: PostularAItemComponent}, 
+  { path: 'curriculumVitae', component: CurriculoVitaeComponent}, 
   { path: '', component: InicioComponent, pathMatch:'full'},
   { path: '**', redirectTo: '/inicio', pathMatch: 'full' }
 ];
@@ -77,7 +79,8 @@ const routes: Routes = [
     AniadirDatoRotuloComponent,
     RotuloItemConvocatoriaComponent,
     PostularConvocatoriaComponent,
-    PostularAItemComponent
+    PostularAItemComponent,
+    CurriculoVitaeComponent
   ],
   imports: [
     BrowserModule,

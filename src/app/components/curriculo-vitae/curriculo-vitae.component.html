@@ -1,0 +1,395 @@
+<div class="container">
+    <div>
+        <div class="mt-3">
+            <h3 class="m-0 d-flex justify-content-center">
+                Curriculo vitae del postulante
+            </h3>
+
+            <form [formGroup]="forCodigoPostulante" id="" class="d-flex justify-content-end">
+                <div class="form-group col-sm-12 col-md-3 m-0 p-0" >                                                                                  
+                    <input type="text" class="form-control form-control-sm" id="" placeholder="Codigo">
+                </div>
+                <button type="submit" class="btn btn-outline-primary btn-sm ml-1">
+                    <i class="fas fa-search"></i>
+                    Buscar
+                </button>
+            </form>
+
+                
+        </div>
+
+        <hr color="black" class="my-2"/>
+    </div>
+
+    <div>
+        <!-- I. DATOS PERSONALES -->
+        <div>
+            <h3 class="font-weight-bold">
+                I. DATOS PERSONALES
+            </h3>
+
+            <form [formGroup]="forDatosPersonales">
+                <!-- NOMBRE COMPLETO -->
+                <div class="form-group m-0">
+                    <h5 class="mt-0 mb-1">
+                        NOMBRE COMPLETO
+                    </h5>
+
+                    <div class="form-row">
+                        <div class="form-group col-sm-12 col-md-4 mb-0">
+                            <input type="text" class="form-control form-control-sm text-capitalize" id="" placeholder="Apellido Paterno">
+                            <h5 for="" class="d-flex justify-content-center"> Apellido Paterno</h5>
+                        </div>
+    
+                        <div class="form-group col-sm-12 col-md-4 mb-0">
+                            <input type="text" class="form-control form-control-sm text-capitalize" id="" placeholder="Apellido Materno">
+                            <h5 for="" class="d-flex justify-content-center"> Apellido Materno</h5>
+                        </div>
+    
+                        <div class="form-group col-sm-12 col-md-4 mb-0">
+                            <input type="text" class="form-control form-control-sm text-capitalize" id="" placeholder="Nombres">
+                            <h5 for="" class="d-flex justify-content-center">Nombres</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <!--FECHA DE NACIMIENTO-->
+                <div class="form-group m-0">
+                    <h5 class="mt-0 mb-1">
+                        FECHA DE NACIMIENTO
+                    </h5>
+
+                    <div class="form-row">
+                        <div class="form-group col-sm-12 col-md-3 mb-0">
+                            <input type="date" class="form-control form-control-sm" id="" placeholder="Día">
+                            <h5 for="" class="d-flex justify-content-center"> Fecha</h5>
+                        </div>
+    
+                        <div class="form-group col-sm-12 col-md-3 mb-0">
+                            <input type="text" class="form-control form-control-sm text-capitalize" id="" placeholder="Lugar">
+                            <h5 for="" class="d-flex justify-content-center text-capitalize">Lugar</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CEDULA DE IDENTIDAD -->
+                <div class="form-group m-0">
+                    <h5 class="mt-0 mb-1">
+                        CEDULA DE IDENTIDAD
+                    </h5>
+
+                    <div class="form-row">
+                        <div class="form-group col-sm-12 col-md-3 mb-0">
+                            <input type="number" class="form-control form-control-sm text-capitalize" id="" placeholder="Nro">
+                            <h5 for="" class="d-flex justify-content-center">Nro.</h5>
+                        </div>
+    
+                        <div class="form-group col-sm-12 col-md-3 mb-0">
+                            <input type="text" class="form-control form-control-sm text-capitalize" id="" placeholder="Lugar de Emision">
+                            <h5 for="" class="d-flex justify-content-center">Lugar de Emision</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NACIONALIDAD -->
+                <div class="form-group m-0">
+                    <h5 class="mt-0 mb-1">
+                        NACIONALIDAD
+                    </h5>
+
+                    <div class="form-row m-0">
+                        <div class="col-sm-12 col-md-3 form-check my-2">
+                            <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacBol" required>
+                            <label class="form-check-label mx-5 my-auto" for="checkNacBol">Bolivian@</label>        
+                        </div>
+
+                        <div class="col-sm-12 form-check my-2">
+                            <div class="form-row">
+                                <div class="col-sm-12 col-md-3">
+                                    <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacBol" required>
+                                    <label class="form-check-label mx-5 my-auto" for="checkNacBol">Extranger@</label> 
+                                </div>
+
+                                <div class="col-sm-12 pt-1 col-md-3">
+                                    <input type="text" class="form-control form-control-sm text-capitalize" id="" placeholder="Nacionalidad">
+                                     <h5 for="" class="d-flex justify-content-center m-0">Nacionalidad</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+
+                <!-- SEXO -->
+                <div class="form-group m-0 mb-2">
+                    <h5 class="mt-0 mb-1">
+                        SEXO
+                    </h5>
+
+                    <div class="form-row m-0">
+                            <div class="col-sm-12 col-md-3 form-check my-2">
+                                <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacBol" required>
+                                <label class="form-check-label mx-5 my-auto" for="checkNacBol">Femenino</label>        
+                            </div>
+
+                            <div class="col-sm-12 col-md-3 form-check my-2 ">
+                              <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacExt" required>
+                              <label class="form-check-label mx-5 my-auto" for="checkNacBol">Masculino</label>        
+                            </div>
+                    </div> 
+                </div>
+
+                <!-- ESTADO CIVIL -->
+                <div class="form-group m-0 mb-2">
+                    <h5 class="mt-0 mb-1">
+                        ESTADO CIVIL
+                    </h5>
+
+                    <div class="form-row m-0">
+                        <div class="col-sm-12 col-md-3 form-check my-2">
+                            <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacBol" required>
+                            <label class="form-check-label mx-5 my-auto" for="checkNacBol">Soltero</label>        
+                        </div>
+
+                        <div class="col-sm-12 col-md-3 form-check my-2">
+                          <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacExt" required>
+                          <label class="form-check-label mx-5 my-auto" for="checkNacBol">Divorciado</label>        
+                        </div>
+                    </div> 
+
+                    <div class="form-row m-0">
+                        <div class="col-sm-12 col-md-3 form-check my-2">
+                            <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacBol" required>
+                            <label class="form-check-label mx-5 my-auto" for="checkNacBol">Casado</label>        
+                        </div>
+
+                        <div class="col-sm-12 col-md-3 form-check my-2">
+                          <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacExt" required>
+                          <label class="form-check-label mx-5 my-auto" for="checkNacBol">Viudo</label>        
+                        </div>
+                    </div> 
+                </div>
+
+                <!-- DOMICILIO PARTICULAR -->
+                <div class="form-group m-0">
+                    <h5 class="mt-0 mb-1">
+                        DOMICILIO PARTICULAR
+                    </h5>
+
+                    <div class="form-row">
+                        <div class="form-group col-sm-12 col-md-5 mb-0">
+                            <input type="text" class="form-control form-control-sm text-capitalize" id="" placeholder="Avenida - Calle - Pasaje">
+                            <h5 for="" class="d-flex justify-content-center"> Avenida - Calle - Pasaje</h5>
+                        </div>
+    
+                        <div class="form-group col-sm-12 col-md-1 mb-0">
+                            <input type="number" class="form-control form-control-sm text-capitalize" id="" placeholder="Nro.">
+                            <h5 for="" class="d-flex justify-content-center">Nro.</h5>
+                        </div>
+    
+                        <div class="form-group col-sm-12 col-md-2 mb-0">
+                            <input type="number" class="form-control form-control-sm text-capitalize" id="" placeholder="Télefono">
+                            <h5 for="" class="d-flex justify-content-center">Télefono</h5>
+                        </div>
+
+                        <div class="form-group col-sm-12 col-md-4 mb-0">
+                            <input type="email" class="form-control form-control-sm text-capitalize" id="" placeholder="Correo Electrónico">
+                            <h5 for="" class="d-flex justify-content-center">Correo Electrónico</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLEGIO EGRESO -->
+                <div class="form-group m-0">
+                    <h5 class="mt-0 mb-1">
+                        COLEGIO EGRESO
+                    </h5>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group mb-0">
+                                <input type="text" class="form-control form-control-sm text-capitalize" id="" placeholder="Nombre del Colegio">
+                                <h5 for="" class="d-flex justify-content-center"> Nombre del Colegio</h5>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-6 p-0">                            
+                            <div class="form-row m-0">
+                                <div class="col-sm-12 col-md-4 form-check my-2">
+                                    <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacBol" required>
+                                    <label class="form-check-label mx-5 my-auto" for="checkNacBol">Particular</label>        
+                                </div>
+        
+                                <div class="col-sm-12 col-md-4 form-check my-2">
+                                  <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacExt" required>
+                                  <label class="form-check-label mx-5 my-auto" for="checkNacBol">Fiscal</label>        
+                                </div>
+                            </div>     
+                            
+                            <div class="form-row m-0">
+                                <div class="col-sm-12 col-md-4 form-check my-2">
+                                    <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacBol" required>
+                                    <label class="form-check-label mx-5 my-auto" for="checkNacBol">Urbano</label>        
+                                </div>
+        
+                                <div class="col-sm-12 col-md-4 form-check my-2">
+                                  <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacExt" required>
+                                  <label class="form-check-label mx-5 my-auto" for="checkNacBol">Rural</label>        
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+
+                <!--FECHA TITULO DE BACHILLER -->
+                <div class="form-group m-0">
+                    <h5 class="mt-0 mb-1">
+                        FECHA TITULO DE BACHILLER
+                    </h5>
+
+                    <div class="form-row">
+                        <div class="form-group col-sm-12 col-md-3 mb-0">
+                            <input type="date" class="form-control form-control-sm" id="" placeholder="Día">
+                            <h5 for="" class="d-flex justify-content-center"> Fecha</h5>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SITUACION ACADEMICA -->
+                <div class="form-group m-0 mb-5">
+                    <h5 class="mt-0 mb-1">
+                        SITUACION ACADEMICA
+                    </h5>
+
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-3 p-0">
+                            <div class="form-group m-0">
+                                <select class="custom-select custom-select-sm" id="">
+                                    <option selected>Departamento...</option>
+                                    <option value="1">Informatica y Sistemas</option>
+                                    <option value="2">Matematicas</option>
+                                    <option value="3">Industrial</option>
+                                </select>  
+                                <h5 for="" class="d-flex m-0 justify-content-center"> Carrera actualmente Inscrito</h5>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-2 py-2 d-flex justify-content-center">
+                            ¿Egresado?
+                        </div>
+
+                        <div class="col-sm-12 col-md-2 p-0">
+                            <div class="form-check my-3">
+                                <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacBol" required>
+                                <label class="form-check-label mx-5 my-auto" for="checkNacBol">Si</label>        
+                            </div>
+
+                            <div class="form-check my-3">
+                              <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacExt" required>
+                              <label class="form-check-label mx-5 my-auto" for="checkNacBol">No</label>        
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-5 p-0">
+                            <div class="row my-2 mx-0">
+                                <div class="col-sm-12 col-md-5 my-auto text-center">
+                                    Fecha de Egreso
+                                </div>
+                                
+                                <div class="col-sm-12 col-md-7  p-0">
+                                    <input type="date" class="form-control form-control-sm" id="">
+                                </div>
+                            </div>
+
+                            <div class="row my-2 mx-0">
+                                <div class="col-sm-12 col-md-5 my-auto text-center">
+                                    Nivel que cursa
+                                </div>
+                                
+                                <div class="col-sm-12 col-md-7 p-0">
+                                    <select class="custom-select custom-select-sm" id="">
+                                        <option selected>Semestre...</option>
+                                        <option value="1">1er Sem.</option>
+                                        <option value="2">2do Sem.</option>
+                                        <option value="3">3er Sem.</option>
+                                    </select>  
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--
+                        <div class="col-sm-12 col-md-9 p-0 bg-success">
+                            <div class="row m-0">
+                                <div class="col-sm-12 col-md-2 d-flex justify-content-center">
+                                    ¿Egresado?
+                                </div>
+
+                                <div class="col-sm-12 col-md-10">
+                                    <div class="form-row">
+                                        
+                                        <div class="form-group col-sm-12 m-0">
+                                            <div class="form-check">
+                                                    <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="checkNacExt" required>
+                                                    
+                                                    <div class="mb-auto ml-3 mr-5" for="checkNacBol">
+                                                        <div class="row">
+                                                            <div class="col-md-2 pl-5">
+                                                                <label for="checkNacExt" class="form-check-label">Si</label>
+                                                            </div>
+                
+                                                            <div class="col-md-10 px-0">
+                                                                <div class="form-group col-sm-12 col-md-6 px-0 mb-0">
+                                                                    <input type="date" class="form-control form-control-sm" id="">
+                                                                    <h5 for="" class="d-flex justify-content-center m-0">Fecha de Egreso</h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>      
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-row">
+                                        
+                                        <div class="form-group col-sm-12 m-0">
+                                            <div class="form-check">
+                                                    <input class="form-check-input ml-3 my-auto" type="checkbox" style="width: 1.7em; height: 1.7em;" value="" id="">
+                                                    
+                                                    <div class="mb-auto ml-3 mr-5" for="">
+                                                        <div class="row">
+                                                            <div class="col-md-2 pl-5">
+                                                                <label for="" class="form-check-label">No</label>
+                                                            </div>
+                
+                                                            <div class="col-md-10 px-0">
+                                                                <div class="form-group col-sm-12 col-md-6 px-0 mb-0">
+                                                                    <select class="custom-select custom-select-sm" id=""> 
+                                                                        <option selected>Nivel que cursa...</option>
+                                                                        <option value="1">1er semestre</option>
+                                                                        <option value="2">2do semestre</option>
+                                                                        <option value="3">3er semestre</option>
+                                                                    </select>  
+                                                                    <h5 for="" class="d-flex justify-content-center m-0">Nivel que cursa</h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>      
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div>
+
+        </div>
+    </div>
+</div>
